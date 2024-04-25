@@ -1,0 +1,17 @@
+cisternCollector: WaterCollector
+cistern: Cistern
+    newPipes = [pipe]
+    collector = cisternCollector
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+ground: WaterCollector
+pipe: Pipe
+    endpoints = [cistern]
+    ground = ground
+    neighbours = [cistern]
+plumber1: Plumber
+    heldPipe = null
+    location = cistern
+plumber2: Plumber
+    heldPipe = null
+    location = cistern

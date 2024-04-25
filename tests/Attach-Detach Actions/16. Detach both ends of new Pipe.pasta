@@ -1,0 +1,17 @@
+load maps/16.map.pasta
+
+detach plumber1 cistern pipe
+
+@pipe.endpoints = [cistern]
+@pipe.neighbours = [cistern]
+@plumber1.heldPipe = pipe
+@cistern.connectedPipes = [pipe]
+@cistern.neighbours = [pipe]
+
+detach plumber2 cistern pipe
+
+@pipe.endpoints = []
+@pipe.neighbours = []
+@plumber2.heldPipe = pipe
+@cistern.connectedPipes = []
+@cistern.neighbours = []

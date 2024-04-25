@@ -1,0 +1,16 @@
+ground: WaterCollector
+collector: WaterCollector
+pump: Pump
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+pipe: Pipe
+    endpoints = [pump, cistern]
+    neighbours = [pump, cistern]
+    pierced = false
+    capacity = 5
+    storedWater = 1
+    ground = ground
+cistern: Cistern
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+    collector = collector

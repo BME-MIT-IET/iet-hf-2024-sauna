@@ -1,0 +1,15 @@
+ground: WaterCollector
+pipe: Pipe
+    endpoints = [pump, spring]
+    occupied = false
+    ground = ground
+    neighbours = [pump, spring]
+plumber: Plumber
+    heldPipe = null
+    location = spring
+pump: Pump
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+spring: Spring
+    connectedPipes = [pipe]
+    neighbours = [pipe]

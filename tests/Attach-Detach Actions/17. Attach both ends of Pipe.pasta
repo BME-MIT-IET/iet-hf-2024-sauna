@@ -1,0 +1,15 @@
+load maps/17.map.pasta
+
+attach plumber1 pump1
+
+@plumber1.heldPipe = null
+@pump1.connectedPipes = [pipe]
+@pump1.neighbours = [pipe]
+
+attach plumber2 pump2
+
+@plumber2.heldPipe = null
+@pump2.connectedPipes = [pipe]
+@pump2.neighbours = [pipe]
+@pipe.endpoints = [pump1, pump2]
+@pipe.neighbours = [pump1, pump2]

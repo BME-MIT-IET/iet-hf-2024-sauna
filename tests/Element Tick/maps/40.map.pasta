@@ -1,0 +1,15 @@
+ground: WaterCollector
+pump: Pump
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+spring: Spring
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+    waterDispensedPerTick = 1
+pipe: Pipe
+    endpoints = [pump, spring]
+    neighbours = [pump, spring]
+    pierced = true
+    capacity = 5
+    storedWater = 0
+    ground = ground

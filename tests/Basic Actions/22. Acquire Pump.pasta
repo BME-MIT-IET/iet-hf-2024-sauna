@@ -1,0 +1,5 @@
+load maps/22.map.pasta
+
+getpump plumber cistern pump
+
+@plumber.heldPumps = [pump]

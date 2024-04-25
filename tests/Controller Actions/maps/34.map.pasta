@@ -1,0 +1,4 @@
+collector1: WaterCollector
+cistern: Cistern
+    collector = collector1
+collector2: WaterCollector

@@ -1,0 +1,12 @@
+load maps/13.map.pasta
+
+detach plumber spring pipe
+
+@pipe.endpoints = [pump]
+@pipe.neighbours = [pump]
+@plumber.heldPipe = pipe
+@plumber.location = spring
+@pump.connectedPipes = [pipe]
+@pump.neighbours = [pipe]
+@spring.connectedPipes = []
+@spring.neighbours = []

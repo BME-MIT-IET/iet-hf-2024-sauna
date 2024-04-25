@@ -1,0 +1,11 @@
+load maps/23.map.pasta
+
+placepump plumber pipe newPipe
+
+@plumber.location = pump3
+@pipe.endpoints = [pump2, pump3]
+@pipe.neighbours = [pump2, pump3]
+@pump3.connectedPipes = [pipe, newPipe]
+@pump3.neighbours = [pipe, newPipe]
+@newPipe.endpoints = [pump1, pump3]
+@newPipe.neighbours = [pump1, pump3]

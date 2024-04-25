@@ -1,0 +1,9 @@
+load maps/21.map.pasta
+
+attach plumber pump
+
+@plumber.heldPipe = pipe3
+@pump.connectedPipes = [pipe1, pipe2]
+@pump.neighbours = [pipe1, pipe2]
+@pipe3.endpoints = []
+@pipe3.neighbours = []

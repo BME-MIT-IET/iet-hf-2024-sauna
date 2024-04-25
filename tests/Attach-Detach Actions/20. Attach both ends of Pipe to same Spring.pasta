@@ -1,0 +1,9 @@
+load maps/20.map.pasta
+
+attach plumber spring
+
+@plumber.heldPipe = pipe
+@spring.connectedPipes = [pipe]
+@spring.neighbours = [pipe]
+@pipe.endpoints = [spring]
+@pipe.neighbours = [spring]

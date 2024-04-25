@@ -1,0 +1,5 @@
+load maps/7.map.pasta
+
+set input plumber pump1 pipe
+
+@pump1.inputPipe = pipe

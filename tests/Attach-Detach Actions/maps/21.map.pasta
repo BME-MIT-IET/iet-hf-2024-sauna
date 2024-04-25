@@ -1,0 +1,16 @@
+pump: Pump
+	ports = 2
+    connectedPipes = [pipe1, pipe2]
+    neighbours = [pipe1, pipe2]
+collector: WaterCollector
+pipe1: Pipe
+    ground = collector
+    neighbours = [pump]
+pipe2: Pipe
+    ground = collector
+    neighbours = [pump]
+pipe3: Pipe
+    ground = collector
+plumber: Plumber
+    heldPipe = pipe3
+    location = pump

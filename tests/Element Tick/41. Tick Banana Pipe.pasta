@@ -1,0 +1,9 @@
+load maps/41.map.pasta
+
+banana saboteur pipe 1
+
+@pipe.effect = Banana
+
+tick pipe
+
+@pipe.effect = None

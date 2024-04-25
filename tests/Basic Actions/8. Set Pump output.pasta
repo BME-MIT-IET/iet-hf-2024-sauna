@@ -1,0 +1,5 @@
+load maps/8.map.pasta
+
+set output plumber pump1 pipe
+
+@pump1.outputPipe = pipe

@@ -1,0 +1,6 @@
+load maps/9.map.pasta
+
+set input plumber pump1 pipe
+
+@pump1.inputPipe = null
+@pump1.outputPipe = pipe

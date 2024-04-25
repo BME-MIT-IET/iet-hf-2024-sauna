@@ -1,0 +1,13 @@
+load maps/32.map.pasta
+
+technokol plumber pipe 1
+move plumber pump1
+move plumber pipe
+move plumber pump2
+
+@plumber.location = pipe
+
+tick pipe
+move plumber pump2
+
+@plumber.location = pump2

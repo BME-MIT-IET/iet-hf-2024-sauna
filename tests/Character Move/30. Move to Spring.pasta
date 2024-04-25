@@ -1,0 +1,6 @@
+load maps/30.map.pasta
+
+move plumber spring
+
+@plumber.location = spring
+@pipe.occupied = false

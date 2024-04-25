@@ -1,0 +1,13 @@
+# config
+
+11. Detach both ends of unoccupied Pipe from Pump.pasta
+12. Detach Pipe from Cistern.pasta
+13. Detach Pipe from Spring.pasta
+14. Detach occupied Pipe.pasta
+15. Detach Pipe end while holding another Pipe end.pasta
+16. Detach both ends of new Pipe.pasta
+17. Attach both ends of Pipe.pasta
+18. Attach both ends of Pipe to same Pump.pasta
+19. Attach both ends of Pipe to same Cistern.pasta
+20. Attach both ends of Pipe to same Spring.pasta
+21. Attach Pipe to Pump with no free ports.pasta

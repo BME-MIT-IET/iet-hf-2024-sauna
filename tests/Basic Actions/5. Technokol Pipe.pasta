@@ -1,0 +1,5 @@
+load maps/5.map.pasta
+
+technokol plumber pipe
+
+@pipe.effect = Technokol

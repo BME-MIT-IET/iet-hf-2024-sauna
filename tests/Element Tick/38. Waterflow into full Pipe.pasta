@@ -1,0 +1,9 @@
+load maps/38.map.pasta
+
+@pipe.capacity = 5
+@pipe.storedWater = 5
+
+tick spring
+
+@pipe.capacity = 5
+@pipe.storedWater = 5

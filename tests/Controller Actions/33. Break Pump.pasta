@@ -1,0 +1,5 @@
+load maps/33.map.pasta
+
+break pump
+
+@pump.broken = true

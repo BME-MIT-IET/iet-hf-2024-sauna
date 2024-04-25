@@ -1,0 +1,8 @@
+load maps/24.map.pasta
+
+placepump plumber pipe newPipe
+
+@plumber.location = pipe
+@pipe.endpoints = [pump1, pump2]
+@pipe.neighbours = [pump1, pump2]
+@!newPipe

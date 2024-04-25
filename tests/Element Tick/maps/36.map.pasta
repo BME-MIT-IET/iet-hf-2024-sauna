@@ -1,0 +1,26 @@
+ground: WaterCollector
+pump1: Pump
+    connectedPipes = [pipe1]
+    neighbours = [pipe1]
+pump2: Pump
+    connectedPipes = [pipe1, pipe2]
+    neighbours = [pipe1, pipe2]
+    inputPipe = pipe1
+    outputPipe = pipe2
+pump3: Pump
+    connectedPipes = [pipe2]
+    neighbours = [pipe2]
+pipe1: Pipe
+    endpoints = [pump1, pump2]
+    neighbours = [pump1, pump2]
+    pierced = false
+    capacity = 5
+    storedWater = 1
+    ground = ground
+pipe2: Pipe
+    endpoints = [pump2, pump3]
+    neighbours = [pump2, pump3]
+    pierced = false
+    capacity = 5
+    storedWater = 0
+    ground = ground

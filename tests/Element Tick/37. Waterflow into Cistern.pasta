@@ -1,0 +1,9 @@
+load maps/37.map.pasta
+
+@pipe.storedWater = 1
+@collector.storedAmount = 0
+
+tick cistern
+
+@pipe.storedWater = 0
+@collector.storedAmount = 1

@@ -1,0 +1,14 @@
+load maps/15.map.pasta
+
+detach plumber pump1 pipe1
+
+@pipe1.endpoints = [pump1, pump2]
+@pipe1.neighbours = [pump1, pump2]
+@pipe2.endpoints = [pump2]
+@pipe2.neighbours = [pump2]
+@plumber.heldPipe = pipe2
+@plumber.location = pump1
+@pump1.connectedPipes = [pipe1]
+@pump1.neighbours = [pipe1]
+@pump2.connectedPipes = [pipe1]
+@pump2.neighbours = [pipe1]

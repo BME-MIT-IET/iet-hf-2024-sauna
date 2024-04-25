@@ -1,0 +1,17 @@
+load maps/36.map.pasta
+
+@pipe1.storedWater = 1
+@pump2.tankStoredWater = 0
+@pipe2.storedWater = 0
+
+tick pump2
+
+@pipe1.storedWater = 0
+@pump2.tankStoredWater = 1
+@pipe2.storedWater = 0
+
+tick pump2
+
+@pipe1.storedWater = 0
+@pump2.tankStoredWater = 0
+@pipe2.storedWater = 1

@@ -1,0 +1,6 @@
+collector: WaterCollector
+cistern: Cistern
+    collector = collector
+plumber: Plumber
+    heldPumps = []
+    location = cistern

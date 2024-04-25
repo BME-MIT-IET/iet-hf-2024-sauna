@@ -1,0 +1,12 @@
+pump1: Pump
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+pump2: Pump
+    connectedPipes = [pipe]
+    neighbours = [pipe]
+pipe: Pipe
+    effect = None
+    endpoints = [pump1, pump2]
+    neighbours = [pump1, pump2]
+saboteur: Saboteur
+    location = pipe

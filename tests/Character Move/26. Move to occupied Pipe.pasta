@@ -1,0 +1,6 @@
+load maps/26.map.pasta
+
+move plumber1 pipe
+
+@plumber1.location = pump1
+@pipe.occupied = true

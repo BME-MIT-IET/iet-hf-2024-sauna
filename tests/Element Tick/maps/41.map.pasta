@@ -1,0 +1,6 @@
+ground: WaterCollector
+saboteur: Saboteur
+    location = pipe
+pipe: Pipe
+    occupied = true
+	ground = ground

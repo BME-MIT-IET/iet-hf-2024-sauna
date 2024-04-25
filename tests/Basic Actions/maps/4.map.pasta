@@ -1,0 +1,16 @@
+pump1: Pump
+	connectedPipes = [pipe]
+	neighbours = [pipe]
+pump2: Pump
+	connectedPipes = [pipe]
+	neighbours = [pipe]
+pipe: Pipe
+    endpoints = [pump1, pump2]
+    occupied = true
+    pierced = false
+    pierceCooldown = 10
+    ground = collector
+    neighbours = [pump1, pump2]
+collector: WaterCollector
+plumber: Plumber
+    location = pipe

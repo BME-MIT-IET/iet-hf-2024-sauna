@@ -1,0 +1,8 @@
+load maps/31.map.pasta
+
+banana saboteur pipe 1 false
+move saboteur pump1
+move saboteur pipe
+
+@saboteur.location = pump2
+@pipe.occupied = false

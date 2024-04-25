@@ -1,0 +1,4 @@
+pump: Pump
+	broken = true
+plumber: Plumber
+	location = pump

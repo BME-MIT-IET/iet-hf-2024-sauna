@@ -1,0 +1,10 @@
+load maps/34.map.pasta
+
+spawnpipe cistern collector2 pipe
+
+@cistern.newPipes = [pipe]
+@cistern.connectedPipes = [pipe]
+@cistern.neighbours = [pipe]
+@pipe.ground = collector2
+@pipe.endpoints = [cistern]
+@pipe.neighbours = [cistern]

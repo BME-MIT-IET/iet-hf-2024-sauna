@@ -1,0 +1,5 @@
+load maps/6.map.pasta
+
+banana saboteur pipe
+
+@pipe.effect = Banana

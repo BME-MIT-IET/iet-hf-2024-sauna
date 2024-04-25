@@ -1,0 +1,5 @@
+load maps/2.map.pasta
+
+repair plumber pump
+
+@pump.broken = false

@@ -1,0 +1,9 @@
+load maps/19.map.pasta
+
+attach plumber cistern
+
+@plumber.heldPipe = pipe
+@cistern.connectedPipes = [pipe]
+@cistern.neighbours = [pipe]
+@pipe.endpoints = [cistern]
+@pipe.neighbours = [cistern]

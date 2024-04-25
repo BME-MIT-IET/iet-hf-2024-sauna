@@ -1,0 +1,19 @@
+collector: WaterCollector
+pipe: Pipe
+    endpoints = []
+    ground = collector
+    neighbours = []
+pump1: Pump
+    connectedPipes = []
+    neighbours = []
+pump2: Pump
+    connectedPipes = []
+    neighbours = []
+plumber1: Plumber
+    heldPipe = pipe
+    heldPumps = []
+    location = pump1
+plumber2: Plumber
+    heldPipe = pipe
+    heldPumps = []
+    location = pump2

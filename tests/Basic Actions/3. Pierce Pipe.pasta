@@ -1,0 +1,5 @@
+load maps/3.map.pasta
+
+pierce plumber pipe
+
+@pipe.pierced = true

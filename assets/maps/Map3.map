@@ -1,0 +1,53 @@
+plumberCollector: WaterCollector
+saboteurCollector: WaterCollector
+
+#[x = 500, y = 700]
+spring1: Spring
+    connectedPipes = [pipe1, pipe3]
+    neighbours = [pipe1, pipe3]
+
+#[x = 900, y = 300]
+spring2: Spring
+    connectedPipes = [pipe1, pipe2, pipe4]
+    neighbours = [pipe1, pipe2, pipe4]
+
+#[x = 1300, y = 700]
+spring3: Spring
+    connectedPipes = [pipe2, pipe5]
+    neighbours = [pipe2, pipe5]
+
+#[x = 900, y = 700]
+cistern: Cistern
+    connectedPipes = [pipe3, pipe4, pipe5]
+    neighbours = [pipe3, pipe4, pipe5]
+    collector = plumberCollector
+
+pipe1: Pipe
+    endpoints = [spring1, spring2]
+    occupied = false
+    ground = saboteurCollector
+    neighbours = [spring1, spring2]
+
+pipe2: Pipe
+    endpoints = [spring2, spring3]
+    occupied = false
+    ground = saboteurCollector
+    neighbours = [spring2, spring3]
+
+pipe3: Pipe
+    endpoints = [spring1, cistern]
+    occupied = false
+    ground = saboteurCollector
+    neighbours = [spring1, cistern]
+
+pipe4: Pipe
+    endpoints = [spring2, cistern]
+    occupied = false
+    ground = saboteurCollector
+    neighbours = [spring2, cistern]
+
+pipe5: Pipe
+    endpoints = [spring3, cistern]
+    occupied = false
+    ground = saboteurCollector
+    neighbours = [spring3, cistern]

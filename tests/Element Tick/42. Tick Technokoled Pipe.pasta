@@ -1,0 +1,9 @@
+load maps/42.map.pasta
+
+technokol saboteur pipe 1
+
+@pipe.effect = Technokol
+
+tick pipe
+
+@pipe.effect = None

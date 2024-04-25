@@ -1,0 +1,7 @@
+load maps/35.map.pasta
+
+@pipe.storedWater = 0
+
+tick spring
+
+@pipe.storedWater = 1
