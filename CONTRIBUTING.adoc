@@ -15,7 +15,7 @@ Before creating a new issue, please check whether a related issue already exists
 
 Feel free to reply to an issue as a form of communication.
 
-Upon resolving an issue, either reference it in the commit message as described https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword[here], or link the PR/commit when closing the issue.
+Upon resolving an issue, either reference it in the commit message or PR as described https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword[here], or link the PR/commit when closing the issue.
 
 == Pull requests
 
