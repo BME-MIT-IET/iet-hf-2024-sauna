@@ -83,6 +83,10 @@ public final class TeamTextBox extends JTextField {
         if (!holdsText) {
             setText(toolTip);
             setFont(getFont().deriveFont(Font.ITALIC));
+        } else {
+            if (getText().length() > 20) {
+                setText(getText().substring(0, 20));
+            }
         }
     }
 }
