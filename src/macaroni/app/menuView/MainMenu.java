@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public final class MainMenu extends JPanel {
+public final class MainMenu extends JPanel implements MenuPanel.PanelListener {
     /**
      * Class used for storing menu images.
      */
@@ -33,6 +33,7 @@ public final class MainMenu extends JPanel {
 
     private MenuPanel plumberPanel;
     private MenuPanel mapPanel;
+    private MenuStartButton startButton;
     private MenuPanel saboteurPanel;
     private final List<MenuImage> images = new ArrayList<>();
 
@@ -73,20 +74,32 @@ public final class MainMenu extends JPanel {
 
         int listElementHeight = getHeight() / 25;
 
-        plumberPanel = new TeamPanel("Plumbers", new Point(teamPanelOffset.x, teamPanelOffset.y), teamPanelSize, listElementHeight);
+        plumberPanel = new TeamPanel("Plumbers", new Point(teamPanelOffset.x, teamPanelOffset.y), teamPanelSize, listElementHeight, this);
         add(plumberPanel);
 
-        mapPanel = new MenuPanel("Maps", mapPanelPosition, mapPanelSize, listElementHeight, true);
+        mapPanel = new MenuPanel("Maps", mapPanelPosition, mapPanelSize, listElementHeight, true, this);
         add(mapPanel);
 
-        saboteurPanel = new TeamPanel("Saboteurs", new Point(getWidth() - teamPanelOffset.x, teamPanelOffset.y), teamPanelSize, listElementHeight);
+        saboteurPanel = new TeamPanel("Saboteurs", new Point(getWidth() - teamPanelOffset.x, teamPanelOffset.y), teamPanelSize, listElementHeight, this);
         add(saboteurPanel);
 
         loadMaps();
         loadImages();
 
-        MenuStartButton startButton = new MenuStartButton(new Point(getWidth() / 2, (int) (getHeight() / 5 * 3.9)), new Dimension(mapPanelSize.width, getHeight() / 7), this::startClick);
+        startButton = new MenuStartButton(new Point(getWidth() / 2, (int) (getHeight() / 5 * 3.9)), new Dimension(mapPanelSize.width, getHeight() / 7), this::startClick);
         add(startButton);
+        startButton.setEnabled(false);
+    }
+
+    @Override
+    public void onPanelChange() {
+        String[] plumbers = plumberPanel.elementList.getElements().toArray(new String[0]);
+        String[] saboteurs = saboteurPanel.elementList.getElements().toArray(new String[0]);
+        String selectedMap = mapPanel.elementList.getSelectedElement();
+
+        if (plumbers.length >= 2 && saboteurs.length >= 2 && selectedMap != null){
+            startButton.setEnabled(true);
+        }
     }
 
     /**

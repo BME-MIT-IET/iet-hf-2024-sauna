@@ -20,7 +20,7 @@ public final class MenuStartButton extends JButton {
      * @param listener the method that gets called if the button is clicked
      */
     public MenuStartButton(Point positionOfCenter, Dimension size, ActionListener listener) {
-        super("START");
+        super("WAITING");
         setSize(size);
         setLocation(positionOfCenter.x - getWidth() / 2, positionOfCenter.y - getHeight() / 2);
         addActionListener(listener);
@@ -56,7 +56,6 @@ public final class MenuStartButton extends JButton {
         RoundRectangle2D baseRectangle = new RoundRectangle2D.Double(outerBorder / 2.0f, outerBorder / 2.0f, width - outerBorder, height - outerBorder, arc - outerBorder, arc - outerBorder);
         g2.setColor(getModel().isPressed() ? GameColors.oceanBlue : GameColors.lateSunset);
         g2.fill(baseRectangle);
-
         g2.setColor(getModel().isRollover() ? GameColors.snowWhite : GameColors.desertYellow);
         g2.setFont(getFont());
 
@@ -67,4 +66,19 @@ public final class MenuStartButton extends JButton {
 
         g2.dispose();
     }
+
+    /**
+     * Overrides the default setEnabled method to provide custom enable/disable behavior.
+     * 
+     * @param enabled true to enable the button, false to disable it
+     */
+    @Override
+    public void setEnabled(boolean enabled) {
+        if(enabled){
+            super.setText("START");
+
+        }
+        super.setEnabled(enabled);
+    }
+
 }
