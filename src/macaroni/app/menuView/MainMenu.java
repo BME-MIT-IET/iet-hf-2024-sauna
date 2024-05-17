@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.awt.event.WindowEvent;             
 
 public final class MainMenu extends JPanel implements MenuPanel.PanelListener {
     /**
@@ -30,6 +31,7 @@ public final class MainMenu extends JPanel implements MenuPanel.PanelListener {
 
     private final List<File> mapFiles = new ArrayList<>();
     private final Controller controller;
+    private JButton closeButton;
 
     private MenuPanel plumberPanel;
     private MenuPanel mapPanel;
@@ -89,6 +91,14 @@ public final class MainMenu extends JPanel implements MenuPanel.PanelListener {
         startButton = new MenuStartButton(new Point(getWidth() / 2, (int) (getHeight() / 5 * 3.9)), new Dimension(mapPanelSize.width, getHeight() / 7), this::startClick);
         add(startButton);
         startButton.setEnabled(false);
+
+        closeButton = new CloseButton(new Point(getWidth() - 90, 10), new Dimension(80, 40), e -> {
+            Window window = SwingUtilities.getWindowAncestor(this);
+            if (window != null) {
+                window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
+            }
+        }, "Exit");
+        add(closeButton);
     }
 
     @Override
