@@ -21,10 +21,13 @@ jar {
 sourceSets {
     main {
         java {
-            srcDirs = ['src/macaroni']
+            srcDirs = ['src']
         }
     }
 }
+
+mainClassName = "macaroni.Main"
+
 dependencies {
     testImplementation 'junit:junit:4.13.1'
 }
