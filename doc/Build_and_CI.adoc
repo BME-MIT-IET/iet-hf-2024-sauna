@@ -1,0 +1,14 @@
+= Build framework and CI setup
+
+== Set up Gradle as a build-system
+
+*   Gradle uses windows-1250 as file encoding (tested on Windows) by default.
+    It is recommended to use UTF-8 instead for compiling both the main program and the test cases.
+    JavaDoc should also be set to UTF-8 separately.
+
+== Set up Gradle build as a GitHub Action
+
+*   Using Gradle with Java is rather simple with the help of the predefined template.
+    (See more https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle[here].)
+
+*   It is important to set the used JDK level to the highest version possible when starting out, so developers using newer features can work safely.
