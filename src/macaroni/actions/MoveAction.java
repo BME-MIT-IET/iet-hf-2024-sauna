@@ -6,12 +6,15 @@ import macaroni.model.character.Plumber;
 import macaroni.model.element.Element;
 import macaroni.views.CharacterView;
 import macaroni.views.PipeView;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 
 /**
  * Mozgási interakciót kezelő osztály.
  */
 public class MoveAction extends Action {
-
+    private static final Logger logger = Logger.getLogger(MoveAction.class.getName());
     /**
      * A karakter, ami a mozgást végzi.
      */
@@ -36,7 +39,7 @@ public class MoveAction extends Action {
     public boolean doAction(Element element) {
         var locationBeforeMove = actor.getLocation();
         var success = actor.moveTo(element);
-        System.out.println("Move success: " + success);
+        logger.info("Move success: " + success);
         if (success) {
             var characterView = (CharacterView) ViewRepository.getViewOfObject(actor);
             characterView.setPosition(ViewRepository.getViewOfObject(element).getPosition());
