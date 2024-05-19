@@ -2,10 +2,9 @@
 
 == Set up Gradle as a build-system
 
-*   Without setting up the framework, we wouldn't
-    have been able to execute further tests.
+*   Without setting up the framework, we wouldn't have been able to execute further tests.
 
-*   When selecting the build framework, we didn't   have specific criteria; we chose Gradle over Maven purely based on preference.
+*   When selecting the build framework, we didn't have specific criteria; we chose Gradle over Maven purely based on preference.
 
 *   Setting up Gradle using IntelliJ IDE was straightforward, as it supports the structure of the build framework and facilitates the setup process.
 
