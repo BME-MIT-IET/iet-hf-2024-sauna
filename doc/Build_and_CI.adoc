@@ -2,6 +2,13 @@
 
 == Set up Gradle as a build-system
 
+*   Without setting up the framework, we wouldn't
+    have been able to execute further tests.
+
+*   When selecting the build framework, we didn't   have specific criteria; we chose Gradle over Maven purely based on preference.
+
+*   Setting up Gradle using IntelliJ IDE was straightforward, as it supports the structure of the build framework and facilitates the setup process.
+
 *   Gradle uses windows-1250 as file encoding (tested on Windows) by default.
     It is recommended to use UTF-8 instead for compiling both the main program and the test cases.
     JavaDoc should also be set to UTF-8 separately.
