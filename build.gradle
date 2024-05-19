@@ -2,14 +2,18 @@ plugins {
     id 'java'
 }
 
-group 'macaroni'
-version '1.0-SNAPSHOT'
 apply plugin: 'application'
-mainClassName = 'main.Main'
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
 }
+
+jar {
+    archiveBaseName = 'gs-gradle'
+    archiveVersion =  '0.1.0'
+}
+
 sourceSets {
     main {
         java {
