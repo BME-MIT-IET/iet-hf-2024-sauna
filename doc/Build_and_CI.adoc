@@ -13,6 +13,8 @@
     It is recommended to use UTF-8 instead for compiling both the main program and the test cases.
     JavaDoc should also be set to UTF-8 separately.
 
+*   The following code snippet was added to the code to enable configuring *_gradle run_*: `mainClassName = "macaroni.Main"`
+
 == Set up Gradle build as a GitHub Action
 
 *   Using Gradle with Java is rather simple with the help of the predefined template.
