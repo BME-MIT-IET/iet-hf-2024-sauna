@@ -1,0 +1,8 @@
+= Static Testing
+
+== Setting up SonarCloud
+
+*   The starter template for the GitHub Action is broken (https://sonarsource.atlassian.net/browse/SCSCANGHA-1[see here]).
+    The fix is updating the given GitHub Action source commit in the link:../.github/workflows/sonarcloud.yml[sonarcloud.yml] file
+    -
+    which happened in commit *#939a3b5a2caf9e2afee5e9f4937515c945579937*.
