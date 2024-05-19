@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'macaroni'
+version '1.0-SNAPSHOT'
+apply plugin: 'application'
+mainClassName = 'main.Main'
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/macaroni']
+        }
+    }
+}
+dependencies {
+    testImplementation 'junit:junit:4.13.1'
+}
