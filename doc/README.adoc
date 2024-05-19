@@ -1,0 +1,5 @@
+= Documentation of the main exercises
+
+:toc:
+
+include::Build_and_CI.adoc[leveloffset=+1]
