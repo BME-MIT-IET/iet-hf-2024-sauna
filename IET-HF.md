@@ -6,3 +6,5 @@ The goal of the saboteurs is to cut out the water supply of the cisterns as the 
 The winner is determined by the amount of water that gets across the system as the game progresses.
 
 ![](./media/poster.png)
+
+The source code can be found in package `macaroni`, which should also be the object of any revision or modification.
