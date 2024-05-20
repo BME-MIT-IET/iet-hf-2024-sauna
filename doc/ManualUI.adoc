@@ -10,17 +10,21 @@ After the initial testing, we discovered 5 major issues that needed fixing.
 
 Input values were added to a list without validation, with no restrictions on characters. To fix this, we updated the function that handles input parameters to only accept allowed names. The updated function restricts inputs to only include lowercase and uppercase letters (A-Z) and numbers, excluding whitespace.
 
-image::typeError.png[width=300, height=200]
+image::typeError.png[width=200, height=200]
 
 == Field widths
 
 There were no restrictions on the length of input values (player name), allowing names of any length to be added to the player list. To fix this, we introduced an additional check to ensure that player names can be a maximum of 10 characters long.
 
-image::unlimitedChars.png[width=300, height=200]
+image::unlimitedChars.png[width=200, height=200]
 
 == Navigational elements
 
 During application runtime, there was no option to exit because it used full-screen mode without an exit or close button. To implement an exit option, we created a CloseButton class, accessible from the main menu and during gameplay, allowing the application to be closed at any time.
+
+image::exitInMenu.png[width=300, height=200]
+
+image::exitGame.png[width=300, height=200]
 
 == Error logging
 
@@ -29,6 +33,8 @@ The application did not properly log information or errors. To fix this, we intr
 == Menu items
 
 In the main menu, the _Start_ button was always clickable, even when no map was selected or there weren't enough players. Instructions for the user were unclear about what needed to be completed to start the game. To improve clarity in user interaction, the _Start_ button in the main menu is now only clickable when the conditions required to start the game are met (map selected, sufficient players).
+
+image::waiting.png[alt="Waiting for a player",width=300, height=200]
 
 == Summary
 
