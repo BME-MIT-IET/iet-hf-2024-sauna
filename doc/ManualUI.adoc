@@ -10,11 +10,13 @@ After the initial testing, we discovered 5 major issues that needed fixing.
 
 Input values were added to a list without validation, with no restrictions on characters. To fix this, we updated the function that handles input parameters to only accept allowed names. The updated function restricts inputs to only include lowercase and uppercase letters (A-Z) and numbers, excluding whitespace.
 
+image::typeError.png[width=300, height=200]
+
 == Field widths
 
 There were no restrictions on the length of input values (player name), allowing names of any length to be added to the player list. To fix this, we introduced an additional check to ensure that player names can be a maximum of 10 characters long.
 
-image::doc\unlimitedChars.png[]
+image::unlimitedChars.png[width=300, height=200]
 
 == Navigational elements
 
