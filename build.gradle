@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "org.sonarqube" version "4.4.1.3373"
 }
 
 apply plugin: 'application'
@@ -30,4 +31,12 @@ mainClassName = "macaroni.Main"
 
 dependencies {
     testImplementation 'junit:junit:4.13.1'
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "BME-MIT-IET_iet-hf-2024-sauna"
+        property "sonar.organization", "bme-mit-iet-org"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
