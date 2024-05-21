@@ -11,6 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Stream;
 
+import macaroni.views.PipeView;
+
+import java.util.logging.Logger;
 /**
  * The entry point of the application
  * <p>
@@ -18,6 +21,7 @@ import java.util.stream.Stream;
  * - Basically if you are able to write "java macaroni.Main" you are good.
  */
 public final class Main {
+     private static final Logger logger = Logger.getLogger(Main.class.getName());
     /**
      * the extension of a config file
      */
@@ -144,12 +148,12 @@ public final class Main {
             outDir = new File(Files.createDirectories(Path.of(
                     logsDir.getAbsolutePath() + "/out")).toUri());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return;
         }
 
         // print some feedback to the user that the application has actually started its job
-        System.out.println("Running...");
+        logger.info("Running...");
 
         // process all the files given as args
         for (String pathname : args) {
@@ -163,9 +167,8 @@ public final class Main {
         // run all the tests in parallel and print their names upon their finish
         tests.parallelStream().forEach(test -> {
             test.run();
-            System.out.println("... " + test.name());
+            logger.info("... " + test.name());
         });
-        System.out.println();
 
         // collect the results of all the tests
         List<String> successfulTests = new ArrayList<>();
@@ -197,14 +200,13 @@ public final class Main {
         try {
             Files.createDirectory(Path.of(logsDir.toPath() + "/maps"));
         } catch (IOException e) {
-            System.out.println("Failed creating maps directory");
+            logger.warning("Failed creating maps directory");
             return;
         }
         mapFiles.forEach((oldPath, newPath) -> {
             try {
                 Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
-                System.out.println(newPath);
                 throw new RuntimeException(e);
             }
         });
@@ -235,18 +237,18 @@ public final class Main {
             if (file != null) {
                 try {
                     Files.writeString(file.toPath(), "=== PASSED ===\n", StandardOpenOption.APPEND);
-                    System.out.println("=== PASSED ===");
+                    logger.info("=== PASSED ===");
                     for (String test : successfulTests) {
                         Files.writeString(file.toPath(), " |> " + test + "\n", StandardOpenOption.APPEND);
-                        System.out.println(" |> " + test);
+                        logger.info(" |> " + test);
                     }
                 } catch (IOException ignored) {
                 }
             } else {
                 // print only to standard out in case _SUM.pasta could not be created
-                System.out.println("=== PASSED ===");
+                logger.info("=== PASSED ===");
                 for (String test : successfulTests) {
-                    System.out.println(" |> " + test);
+                    logger.info(" |> " + test);
                 }
             }
         }
@@ -258,36 +260,32 @@ public final class Main {
                 try {
                     if (!successfulTests.isEmpty()) {
                         Files.writeString(file.toPath(), "\n\n", StandardOpenOption.APPEND);
-                        System.out.println("\n");
                     }
                     Files.writeString(file.toPath(), "!== FAILED !==\n", StandardOpenOption.APPEND);
-                    System.out.println("!== FAILED !==");
+                    logger.info("!== FAILED !==");
                     for (Map.Entry<String, List<Result.Failure>> entry : failedTests.entrySet()) {
                         Files.writeString(file.toPath(), " |> " + entry.getKey() + "\n", StandardOpenOption.APPEND);
-                        System.out.println(" |> " + entry.getKey());
+                        logger.info(" |> " + entry.getKey());
                         // print all the assertion errors in their desired format
                         for (Result.Failure assertion : entry.getValue()) {
                             Files.writeString(file.toPath(), assertion.message() + "\n", StandardOpenOption.APPEND);
-                            System.out.println(assertion.message());
+                            logger.info(assertion.message());
                         }
                         Files.writeString(file.toPath(), "\n", StandardOpenOption.APPEND);
-                        System.out.println();
                     }
                 } catch (IOException ignored) {
                 }
             } else {
                 // print only to standard out in case _SUM.pasta could not be created
                 if (!successfulTests.isEmpty()) {
-                    System.out.println("\n");
                 }
-                System.out.println("!== FAILED !==");
+                logger.info("!== FAILED !==");
                 for (Map.Entry<String, List<Result.Failure>> entry : failedTests.entrySet()) {
-                    System.out.println(" |> " + entry.getKey());
+                    logger.info(" |> " + entry.getKey());
                     // print all the assertion errors in their desired format
                     for (Result.Failure assertion : entry.getValue()) {
-                        System.out.println(assertion.message());
+                        logger.info(assertion.message());
                     }
-                    System.out.println();
                 }
             }
         }

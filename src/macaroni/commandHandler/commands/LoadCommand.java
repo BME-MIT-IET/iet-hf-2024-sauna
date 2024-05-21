@@ -5,8 +5,11 @@ import macaroni.utils.ModelObjectSerializer;
 import macaroni.commandHandler.CommandInterpreter;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 public final class LoadCommand extends Command {
+
+    private static final Logger logger = Logger.getLogger(LoadCommand.class.getName());
 
     /**
      * Constructor.
@@ -39,7 +42,7 @@ public final class LoadCommand extends Command {
 
         File f = new File(path.toString());
         if (!f.exists() || f.isDirectory()) {
-            System.out.println("! file not found");
+            logger.warning("File not found: " + path.toString());
             return;
         }
 
@@ -48,9 +51,9 @@ public final class LoadCommand extends Command {
 
         try {
             ModelObjectSerializer.deserializeFromFile(f);
-            System.out.println("load successful");
+            logger.info("Load successful");
         } catch (Exception e) {
-            System.out.println("! cannot load file");
+            logger.severe("Failed to load file: " + e.getMessage());
             ModelObjectFactory.reset();
         }
     }

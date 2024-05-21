@@ -5,8 +5,11 @@ import macaroni.commandHandler.CommandInterpreter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public final class SaveCommand extends Command {
+
+    private static final Logger logger = Logger.getLogger(SaveCommand.class.getName());
 
     /**
      * Constructor.
@@ -41,7 +44,7 @@ public final class SaveCommand extends Command {
             // delete file if already exists
             boolean success = f.delete();
             if (!success) {
-                System.out.println("! cannot save file");
+                logger.warning("Cannot save file: File already exists and couldn't be deleted.");
                 return;
             }
         }
@@ -52,16 +55,16 @@ public final class SaveCommand extends Command {
             // create parent directories
             boolean success = folder.mkdirs();
             if (!success) {
-                System.out.println("! cannot save file");
+                logger.warning("Cannot save file: Failed to create parent directories.");
                 return;
             }
         }
 
         try {
             ModelObjectSerializer.serializeToFile(f);
-            System.out.println("save successful");
+            logger.info("Save successful");
         } catch (IOException e) {
-            System.out.println("! cannot save file");
+            logger.severe("Failed to save file: " + e.getMessage());
         }
     }
 }
