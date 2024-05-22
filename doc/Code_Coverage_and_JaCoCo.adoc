@@ -1,0 +1,15 @@
+= Code Coverage and jacoco implementation
+
+== Code Coverage choice
+
+*   Needed a code coverage with a lot of details. The one provided by IntelliJ could be used, but wanted to try a more detailed one.
+
+*   JaCoCo seemed the ideal choice for our Java project
+
+== Setting up JaCoCo
+
+*   Used the official documentation to setup JaCoCo
+
+*   Had some problems, but after a bit of troubleshooting, I managed to set it up, and it correctly generated the detailed code coverage
+
+*   With the new code coverage I wrote some new Unittests
