@@ -5,10 +5,6 @@ package macaroni.app;
  */
 public final class App {
     /**
-     * number of frames per second
-     */
-    private final long FPS = 60;
-    /**
      * shows whether the app is currently running
      */
     boolean running = false;
@@ -24,15 +20,23 @@ public final class App {
         running = true;
         window.open();
 
+        long fps = 60;
         long lastLoopTime = System.currentTimeMillis();
+        final long OPTIMAL_TIME = 1000 / fps;
+
         while (running) {
+            long currentLoopTime = System.currentTimeMillis();
+            long elapsedTime = currentLoopTime - lastLoopTime;
+
             if (window.shouldClose()) {
                 running = false;
             }
-            window.repaint();
+            if (elapsedTime >= OPTIMAL_TIME) {
+                window.repaint();
+                lastLoopTime = currentLoopTime;
+            }
 
-            long currentLoopTime = System.currentTimeMillis();
-            long sleepTime = 1000 / FPS - (currentLoopTime - lastLoopTime);
+            long sleepTime = lastLoopTime - System.currentTimeMillis() + OPTIMAL_TIME;
             if (sleepTime >= 0) {
                 try {
                     Thread.sleep(sleepTime);
@@ -40,7 +44,6 @@ public final class App {
                     running = false;
                 }
             }
-            lastLoopTime = currentLoopTime;
         }
 
         window.close();
