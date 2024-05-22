@@ -1,6 +1,5 @@
-package macaroni.test;
+package macaroni.model.character;
 
-import macaroni.model.character.Plumber;
 import macaroni.model.element.Cistern;
 import macaroni.model.element.Pipe;
 import macaroni.model.misc.WaterCollector;

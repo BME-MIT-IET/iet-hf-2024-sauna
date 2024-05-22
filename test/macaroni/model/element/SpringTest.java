@@ -1,8 +1,5 @@
-package macaroni.test;
+package macaroni.model.element;
 
-import macaroni.model.element.Pipe;
-import macaroni.model.element.Pump;
-import macaroni.model.element.Spring;
 import macaroni.model.misc.WaterCollector;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,5 @@
-package macaroni.test;
+package macaroni.model.character;
 
-import macaroni.model.character.Saboteur;
 import macaroni.model.effects.BananaEffect;
 import macaroni.model.effects.TechnokolEffect;
 import macaroni.model.element.Pipe;
