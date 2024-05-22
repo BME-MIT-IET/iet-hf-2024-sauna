@@ -1,1 +1,30 @@
-TODO
+= Non-Functional Testing Report
+
+== Decision to Use JProfiler
+
+After careful consideration of the application's type — an offline, Java Swing-based, single-player game — we decided to use JProfiler instead of JMeter. While JMeter is excellent for load testing and performance testing of web applications, JProfiler offers more comprehensive capabilities for profiling Java applications. JProfiler's robust feature set makes it an ideal choice for analyzing CPU and memory usage, detecting memory leaks, and optimizing performance.
+
+== Profiling the Application
+
+In this project, we used JProfiler to profile the entire application, focusing on both the menu screen and the in-game state. The primary areas of focus were:
+
+- **Memory Usage**: Monitoring the application's memory consumption and identifying any memory leaks.
+- **CPU Usage**: Analyzing CPU utilization to detect performance bottlenecks.
+
+=== Menu Screen Profiling
+
+While profiling the application in the menu screen, we observed a significant amount of continuous object creation. The top objects by instance count and memory consumption were:
+
+- `java.awt.geom.AffineTransform`: 7000 instances/sec
+- `sun.java2d.SunGraphics2D`: 4500 instances/sec
+- `java.awt.Rectangle`: 3500 instances/sec
+
+These objects were being created at a high rate, leading to increased memory usage and CPU consumption.
+
+=== In-Game Profiling
+
+During in-game profiling, similar patterns of excessive object creation were noted. By analyzing the memory and CPU usage, we were able to identify areas where performance could be optimized.
+
+== Identifying and Optimizing the Window Refresher Method
+
+One of the key findings from the profiling sessions was a small issue with the window refresher method. The `repaint` method was being called more often than needed, leading to unnecessary object creation and higher CPU usage. We implemented a small optimization by reducing the frequency of the `repaint` calls, resulting in a noticeable improvement in performance.
