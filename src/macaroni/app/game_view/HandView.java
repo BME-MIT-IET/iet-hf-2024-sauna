@@ -22,11 +22,11 @@ public final class HandView extends JComponent {
     /**
      * the pump's texture to be shown
      */
-    private final Image pumpTexture;
+    private final transient Image pumpTexture;
     /**
      * the pipe's texture to be shown
      */
-    private final Image pipeTexture;
+    private final transient Image pipeTexture;
 
     /**
      * Constructs a HandView instance

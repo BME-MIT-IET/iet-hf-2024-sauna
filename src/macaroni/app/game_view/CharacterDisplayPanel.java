@@ -11,9 +11,9 @@ import java.awt.*;
 public class CharacterDisplayPanel extends JPanel {
 
     private String name;
-    private Character character;
+    private transient Character character;
 
-    Image profilePicture = null;
+    transient Image profilePicture = null;
 
     /**
      * Constructor, creates a new CharacterDisplayPanel.

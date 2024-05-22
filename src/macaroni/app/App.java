@@ -6,7 +6,6 @@ import java.util.logging.Level;
 public final class App {
     private static final Logger logger = Logger.getLogger(App.class.getName());
 
-    private final long FPS = 60;
     boolean running = false;
     private final Window window = new Window();
 
@@ -25,10 +24,11 @@ public final class App {
             window.repaint();
 
             long currentLoopTime = System.currentTimeMillis();
-            long sleepTime = 1000 / FPS - (currentLoopTime - lastLoopTime);
+            long fps = 60;
+            long sleepTime = 1000 / fps - (currentLoopTime - lastLoopTime);
             if (sleepTime >= 0) {
                 try {
-                    logger.fine("Sleeping for " + sleepTime + " ms.");
+                    logger.fine("Sleeping for %d ms.".formatted(sleepTime));
                     Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
                     logger.log(Level.SEVERE, "Thread was interrupted. Stopping application.", e);

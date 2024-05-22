@@ -17,23 +17,31 @@ public class GamePanel extends JPanel {
      * Struct holding ActionButton text and OnClick methods.
      */
     static class MenuAction {
-        public String title;
-        public Runnable listener;
+        private String title;
+        private Runnable listener;
 
         public MenuAction(String title, Runnable listener) {
+            this.setTitle(title);
+            this.setListener(listener);
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
             this.title = title;
+        }
+
+        public Runnable getListener() {
+            return listener;
+        }
+
+        public void setListener(Runnable listener) {
             this.listener = listener;
         }
     }
 
-    /**
-     * the offset of the buttons
-     */
-    private int buttonOffset;
-    /**
-     *  the height of the notification label
-     */
-    private int notificationLabelHeight;
     /**
      * the notification label
      */
@@ -55,7 +63,7 @@ public class GamePanel extends JPanel {
      */
     private HandView handView;
 
-    private JButton closeButton;
+
     /**
      * Constructor, creates a new GamePanel.
      */
@@ -76,6 +84,9 @@ public class GamePanel extends JPanel {
      * Displays the components of the GamePanel.
      */
     public void reloadComponents() {
+        JButton closeButton;
+        int notificationLabelHeight;
+        int buttonOffset;
         if (getWidth() < 25 || getHeight() < 25) {
             return;
         }
@@ -93,7 +104,6 @@ public class GamePanel extends JPanel {
         mainContentPanel.setLayout(new BorderLayout());
         mainContentPanel.setBackground(new Color(0, 0, 0, 0));
         mainContentPanel.setOpaque(false);
-        //mainContentPanel.setBackground(GameColors.mohammedanMagic);
 
         notificationLabel = new NotificationLabel(new Dimension(getWidth(), notificationLabelHeight));
         mainContentPanel.add(notificationLabel, BorderLayout.SOUTH);
@@ -101,7 +111,7 @@ public class GamePanel extends JPanel {
         for (int i = 1; i <= actionList.size(); i++) {
             Point position = new Point((int) (getWidth() / 3.7f), getHeight() - notificationLabelHeight - i * buttonOffset);
             Dimension size = new Dimension((int) (getWidth() * 2 / 4.2f), getHeight() / 16);
-            ActionButton button = new ActionButton(actionList.get(i - 1).title, position, size, actionList.get(i - 1).listener);
+            ActionButton button = new ActionButton(actionList.get(i - 1).getTitle(), position, size, actionList.get(i - 1).getListener());
             add(button);
         }
 

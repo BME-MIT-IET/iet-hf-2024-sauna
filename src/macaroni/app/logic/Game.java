@@ -61,7 +61,7 @@ public final class Game {
     /**
      * the maximum amount of rounds
      */
-    public static final int maximumNumberOfRounds = 15;
+    public static final int MAXIMUM_NUMBER_OF_ROUNDS = 15;
     /**
      * the number of the current turn
      */
@@ -199,16 +199,14 @@ public final class Game {
             if (currentTurnNumber >= maximumNumberOfTurns) {
                 currentTurnNumber = 0;
                 currentRoundNumber++;
-                if (currentRoundNumber >= maximumNumberOfRounds) {
+                if (currentRoundNumber >= MAXIMUM_NUMBER_OF_ROUNDS) {
                     running = false;
                     var e = new GameEndedEvent(
                             plumberCollector.getStoredAmount() >= saboteurCollector.getStoredAmount()
                                     ? GameEndedEvent.Winners.PLUMBERS
                                     : GameEndedEvent.Winners.SABOTEURS
                     );
-                    for (var listener : gameEndedListeners) {
-                        listener.onGameEnd(e);
-                    }
+                    gameEndedListeners.forEach(listener -> listener.onGameEnd(e));
                 }
             }
         }
@@ -241,11 +239,11 @@ public final class Game {
                 var pipe = (Pipe) ModelObjectFactory.getObject(nameOfPipe);
 
                 double randomDirection = random.nextDouble(0, 2 * Math.PI);
-                logger.info("Random direction: " + randomDirection);
+                logger.info("Random direction: %s".formatted(randomDirection));
                 int x = (int) (cisternPosition.x() + Math.cos(randomDirection) * 120.0);
                 int y = (int) (cisternPosition.y() + Math.sin(randomDirection) * 120.0);
 
-                logger.info("x: " + x + " y: " + y);
+                logger.info("x: %d y: %d".formatted(x, y));
 
                 // create view for new pipe
                 var pipeView = new PipeView(pipe , new Position[] {cisternPosition, new Position(x, y)});

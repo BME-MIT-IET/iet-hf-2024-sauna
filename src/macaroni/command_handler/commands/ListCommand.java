@@ -58,8 +58,8 @@ public final class ListCommand extends Command {
      */
     private void loadInLists() {
         Set<String> set = ModelObjectFactory.getObjectNameList();
-        for (Class<?> c : lists.keySet()) {
-            lists.get(c).clear();
+        for (ArrayList<String> list : lists.values()) {
+            list.clear();
         }
         for (String name : set) {
             Object object = ModelObjectFactory.getObject(name);
@@ -72,10 +72,10 @@ public final class ListCommand extends Command {
      */
     private void printLists() {
         for (Map.Entry<Class<?>, ArrayList<String>> entry : lists.entrySet()) {
-            if (entry.getValue().size() == 0) {
+            if (entry.getValue().isEmpty()) {
                 continue;
             }
-            logger.info(entry.getKey().getSimpleName() + ": " + String.join(", ", entry.getValue()));
+            logger.info("%s: %s".formatted(entry.getKey().getSimpleName(), String.join(", ", entry.getValue())));
         }
     }
 }

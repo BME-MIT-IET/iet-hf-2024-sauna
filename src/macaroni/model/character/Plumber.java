@@ -11,7 +11,7 @@ import java.util.List;
 public class Plumber extends Character {
 
     /**
-     * The pipe held by the plumber inbetween detach and attach actions,
+     * The pipe held by the plumber in between detach and attach actions,
      * null if the plumber doesn't hold a pipe.
      */
     private Pipe heldPipe;

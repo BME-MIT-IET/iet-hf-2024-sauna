@@ -26,7 +26,8 @@ public final class CloseButton extends JButton {
         int width = getWidth();
         int height = getHeight();
 
-        float outerBorder = getWidth() / 15.0f, innerBorder = outerBorder * 0.8f;
+        float outerBorder = getWidth() / 15.0f;
+        float innerBorder = outerBorder * 0.8f;
         int arc = getWidth() / 4;
 
         RoundRectangle2D outerBorderRectangle = new RoundRectangle2D.Double(0, 0, width, height, arc, arc);

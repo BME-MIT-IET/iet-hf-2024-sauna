@@ -48,7 +48,7 @@ public final class HelpCommand extends Command {
         for (Command command : commandList) {
             nameList.add(command.name);
         }
-        logger.info("Available commands: " + String.join(", ", nameList));
+        logger.info("Available commands: %s".formatted(String.join(", ", nameList)));
     }
 
     /**

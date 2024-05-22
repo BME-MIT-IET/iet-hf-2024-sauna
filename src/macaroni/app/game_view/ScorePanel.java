@@ -44,7 +44,7 @@ public final class ScorePanel extends JPanel {
         scoreLabel.setForeground(GameColors.oceanBlue);
         add(scoreLabel);
 
-        roundLabel = new JLabel("0 / " + Game.maximumNumberOfRounds);
+        roundLabel = new JLabel("0 / " + Game.MAXIMUM_NUMBER_OF_ROUNDS);
         roundLabel.setFont(AssetManager.getFont("ChakraPetch-Bold.ttf").deriveFont(Font.ITALIC, getHeight() / 10.f));
         roundLabel.setForeground(GameColors.oceanBlue);
         add(roundLabel);
@@ -66,6 +66,6 @@ public final class ScorePanel extends JPanel {
      * @param currentRound the number of the current round
      */
     public void updateRound(int currentRound) {
-        roundLabel.setText(currentRound + " / " + Game.maximumNumberOfRounds);
+        roundLabel.setText(currentRound + " / " + Game.MAXIMUM_NUMBER_OF_ROUNDS);
     }
 }

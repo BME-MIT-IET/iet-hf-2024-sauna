@@ -12,7 +12,7 @@ public final class GameOverPanel extends JPanel {
     /**
      * the texture of the game over state
      */
-    private final Image texture;
+    private final transient Image texture;
 
     /**
      * Constructs a GameOverPanel

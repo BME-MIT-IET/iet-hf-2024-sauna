@@ -42,7 +42,7 @@ public final class LoadCommand extends Command {
 
         File f = new File(path.toString());
         if (!f.exists() || f.isDirectory()) {
-            logger.warning("File not found: " + path.toString());
+            logger.warning("File not found: %s".formatted(path.toString()));
             return;
         }
 

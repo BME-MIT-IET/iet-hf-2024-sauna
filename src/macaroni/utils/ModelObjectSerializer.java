@@ -117,7 +117,7 @@ public class ModelObjectSerializer {
 
         // if obj is a list, go through all elements and print them,
         // and if they are model objects, print their names instead
-        if (obj instanceof List list) {
+        if (obj instanceof List<?> list) {
             StringBuilder sb = new StringBuilder("[");
             for (Object o : list) {
                 sb.append(serializeAttribute(o)).append(", ");

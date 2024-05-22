@@ -69,16 +69,16 @@ public final class CommandInterpreter {
      * @param args the arguments of the command
      */
     private void processCommand(String[] args) {
-        logger.info("Processing command: " + args[0]);
+        logger.info("Processing command: %s".formatted(args[0]));
         for (Command command : commands) {
             if (command.getName().equals(args[0].toLowerCase())) {
                 command.execute(args);
-                logger.info("Command executed successfully: " + args[0]);
+                logger.info("Command executed successfully: %s".formatted(args[0]));
                 return;
             }
         }
         printUnknownCommand();
-        logger.warning("Unknown command: " + args[0]);
+        logger.warning("Unknown command: %s".formatted(args[0]));
     }
 
     /**
@@ -90,11 +90,11 @@ public final class CommandInterpreter {
      */
     public static boolean namingIsWrong(String nameToCheck) {
         if (!nameToCheck.matches("[a-zA-Z0-9]+")) {
-            logger.warning("Invalid name format: " + nameToCheck);
+            logger.warning("Invalid name format: %s".formatted(nameToCheck));
             return true;
         }
         if (ModelObjectFactory.getObject(nameToCheck) != null) {
-            logger.warning("Duplicate object name: " + nameToCheck);
+            logger.warning("Duplicate object name: %s".formatted(nameToCheck));
             return true;
         }
         return false;

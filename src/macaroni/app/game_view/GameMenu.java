@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -43,7 +44,7 @@ public final class GameMenu extends JPanel {
     /**
      * the game
      */
-    private final Game game = new Game();
+    private final transient Game game = new Game();
     /**
      * the dragger utility for a dragging effect
      */
@@ -55,7 +56,7 @@ public final class GameMenu extends JPanel {
     /**
      * the currently selected action
      */
-    private Action selectedAction = null;
+    private transient Action selectedAction = null;
 
     /**
      * a counter for the newly created pump ids
@@ -74,9 +75,10 @@ public final class GameMenu extends JPanel {
      */
     public GameMenu(Controller controller, Dimension size) {
         game.addGameEndedListener(e -> {
-            switch(e.winners()) {
-                case PLUMBERS -> gameOverPanel = new GameOverPanel(size, "PlumbersWin.png");
-                case SABOTEURS -> gameOverPanel = new GameOverPanel(size, "SaboteursWin.png");
+            if (Objects.requireNonNull(e.winners()) == Game.GameEndedEvent.Winners.PLUMBERS) {
+                gameOverPanel = new GameOverPanel(size, "PlumbersWin.png");
+            } else if (e.winners() == Game.GameEndedEvent.Winners.SABOTEURS) {
+                gameOverPanel = new GameOverPanel(size, "SaboteursWin.png");
             }
             add(gameOverPanel);
         });
@@ -110,34 +112,16 @@ public final class GameMenu extends JPanel {
      * Starts the game and inits the components
      */
     private void start() {
+        // Refactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.
         if (gameOverPanel != null) {
             remove(gameOverPanel);
         }
         showValidActions();
         gamePanel.setCharacter(game.getCurrentCharacter(), game.getCurrentCharacterName());
 
-        Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
-            if (event instanceof MouseEvent evt) {
-                if (evt.getID() == MouseEvent.MOUSE_PRESSED) {
-                    if (selectedAction != null) {
-                        positionLock = true;
-                    }
-                    processMousePress(evt);
-                } else if (evt.getID() == MouseEvent.MOUSE_RELEASED) {
-                    positionLock = false;
-                }
-            }
-        }, AWTEvent.MOUSE_EVENT_MASK);
+        Toolkit.getDefaultToolkit().addAWTEventListener(this::eventDispatched, AWTEvent.MOUSE_EVENT_MASK);
 
-        Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
-            if (event instanceof MouseEvent evt) {
-                if (evt.getID() == MouseEvent.MOUSE_DRAGGED) {
-                    if (!positionLock) dragger.mouseDragged(evt);
-                } else if (evt.getID() == MouseEvent.MOUSE_MOVED) {
-                    if (!positionLock) dragger.mouseMoved(evt);
-                }
-            }
-        }, AWTEvent.MOUSE_MOTION_EVENT_MASK);
+        Toolkit.getDefaultToolkit().addAWTEventListener(this::eventDispatched2, AWTEvent.MOUSE_MOTION_EVENT_MASK);
     }
 
     /**
@@ -149,43 +133,56 @@ public final class GameMenu extends JPanel {
         int x = (int) (e.getX() - dragger.getTransform().getTranslateX());
         int y = (int) (e.getY() - dragger.getTransform().getTranslateY());
 
-        logger.info("Mouse pressed: x: " + x + ", y: " + y);
+        logger.info("Mouse pressed: x: %d, y: %d".formatted(x, y));
         if (selectedAction != null) {
-            View foundView = null;
-            // go through active elements
-            var activeElementViews = ViewRepository.getFiltered(
-                    v -> v instanceof CisternView || v instanceof PumpView || v instanceof SpringView);
-
-            for (var view : activeElementViews) {
-                if (view.isInside(x, y)) {
-                    foundView = view;
-                    break;
-                }
-            }
-
-            // go through pipes if no active element found
-            if (foundView == null) {
-                logger.warning("Couldn't find active elements, searching for pipes...");
-                for (View view : ViewRepository.getFiltered(v -> v instanceof PipeView)) {
-                    if (view.isInside(x, y)) {
-                        foundView = view;
-                        break;
-                    }
-                }
-            }
-
-            if (foundView != null) {
-                logger.fine("View found: " + foundView);
-                selectView(foundView);
-            } else {
-                logger.warning("No view found");
-                actionFailed(false);
-            }
-            selectedAction = null;
+            handleSelectedAction(x, y);
         } else {
             logger.warning("Selected action is null");
             dragger.mousePressed(e);
         }
+    }
+
+    private void handleSelectedAction(int x, int y) {
+        View foundView = findView(x, y);
+
+        if (foundView != null) {
+            logger.fine("View found: %s".formatted(foundView));
+            selectView(foundView);
+        } else {
+            logger.warning("No view found");
+            actionFailed(false);
+        }
+        selectedAction = null;
+    }
+
+    private View findView(int x, int y) {
+        View foundView = findActiveElementView(x, y);
+        if (foundView == null) {
+            logger.warning("Couldn't find active elements, searching for pipes...");
+            foundView = findPipeView(x, y);
+        }
+        return foundView;
+    }
+
+    private View findActiveElementView(int x, int y) {
+        var activeElementViews = ViewRepository.getFiltered(
+                v -> v instanceof CisternView || v instanceof PumpView || v instanceof SpringView);
+
+        for (var view : activeElementViews) {
+            if (view.isInside(x, y)) {
+                return view;
+            }
+        }
+        return null;
+    }
+
+    private View findPipeView(int x, int y) {
+        for (View view : ViewRepository.getFiltered(PipeView.class::isInstance)) {
+            if (view.isInside(x, y)) {
+                return view;
+            }
+        }
+        return null;
     }
 
     /**
@@ -194,7 +191,7 @@ public final class GameMenu extends JPanel {
      * @param view the view
      */
     private void selectView(View view) {
-        logger.info("Trying action on view: " + view);
+        logger.info("Trying action on view: %s".formatted(view));
         if (view.select(selectedAction)) {
             actionSuccess();
         } else {
@@ -235,11 +232,10 @@ public final class GameMenu extends JPanel {
             } else if (location instanceof Pump) {
                 actions.add(new GamePanel.MenuAction("Repair Pump", this::doRepairPumpAction));
             }
-        } else if (currentCharacter instanceof Saboteur) {
-            if (location instanceof Pipe) {
+        } else if (currentCharacter instanceof Saboteur && location instanceof Pipe) {
                 actions.add(new GamePanel.MenuAction("Drop Banana", this::doBananaPipeAction));
             }
-        }
+
 
         gamePanel.setActionList(actions);
     }
@@ -457,6 +453,28 @@ public final class GameMenu extends JPanel {
             }
         } else {
             actionFailed(true);
+        }
+    }
+
+    private void eventDispatched(AWTEvent event) {
+        if (event instanceof MouseEvent evt) {
+            if (evt.getID() == MouseEvent.MOUSE_PRESSED) {
+                if (selectedAction != null) {
+                    positionLock = true;
+                }
+                processMousePress(evt);
+            } else if (evt.getID() == MouseEvent.MOUSE_RELEASED) {
+                positionLock = false;
+            }
+        }
+    }
+
+    private void eventDispatched2(AWTEvent event) {
+        if (event instanceof MouseEvent evt) {
+            if (evt.getID() == MouseEvent.MOUSE_DRAGGED) {
+                if (!positionLock) dragger.mouseDragged(evt);
+            } else if (evt.getID() == MouseEvent.MOUSE_MOVED && !positionLock) dragger.mouseMoved(evt);
+
         }
     }
 }

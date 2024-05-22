@@ -15,7 +15,7 @@ public abstract class Command {
      *
      * @param name the name of the command
      */
-    public Command(String name) {
+    protected Command(String name) {
         this.name = name;
     }
 

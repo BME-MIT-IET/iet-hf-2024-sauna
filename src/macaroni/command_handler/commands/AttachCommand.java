@@ -38,16 +38,20 @@ public final class AttachCommand extends Command {
 
         try {
             ActiveElement activeElement = (ActiveElement) objects.get(1);
-            try {
-                // Try interpreting first argument as pipe
-                activeElement.addPipe((Pipe) objects.get(0));
-            } catch (ClassCastException exception) {
-                // Try interpreting first argument as plumber
-                ((Plumber) objects.get(0)).attachPipe(activeElement);
-            }
+            interpretingFirstArgument(activeElement, objects);
 
         } catch (ClassCastException exception) {
             CommandInterpreter.printInvalidArgument();
+        }
+    }
+
+    private static void interpretingFirstArgument(ActiveElement activeElement, ArrayList<Object> objects) {
+        try {
+            // Try interpreting first argument as pipe
+            activeElement.addPipe((Pipe) objects.get(0));
+        } catch (ClassCastException exception) {
+            // Try interpreting first argument as plumber
+            ((Plumber) objects.get(0)).attachPipe(activeElement);
         }
     }
 }
