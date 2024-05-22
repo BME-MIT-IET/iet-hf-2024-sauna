@@ -14,7 +14,7 @@ public abstract class View {
      */
     protected Position position;
 
-    public View(Position position) {
+    protected View(Position position) {
         this.position = position;
     }
 

@@ -21,7 +21,7 @@ public abstract class CharacterView extends View {
      * @param position a karakter helye.
      * @param name a karakter neve.
      */
-    public CharacterView(Position position, String name) {
+    protected CharacterView(Position position, String name) {
         super(position);
         this.name = name;
     }

@@ -1,7 +1,7 @@
 package macaroni.app;
 
-import macaroni.app.gameView.GameMenu;
-import macaroni.app.menuView.MainMenu;
+import macaroni.app.game_view.GameMenu;
+import macaroni.app.menu_view.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +19,8 @@ public final class Window extends JFrame {
      * Constructs a window with the application's menus
      */
     public Window() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setResizable(false);

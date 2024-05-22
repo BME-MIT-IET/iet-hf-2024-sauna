@@ -15,6 +15,10 @@ import java.util.stream.Stream;
  */
 public class AssetManager {
 
+    private AssetManager() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * Map of font names to fonts.
      */

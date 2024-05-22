@@ -21,7 +21,7 @@ public abstract class Character {
      *
      * @param location the initial location of the character
      */
-    public Character(Element location) {
+    protected Character(Element location) {
         this.location = location;
     }
 
@@ -123,7 +123,6 @@ public abstract class Character {
      * @return the element on which the character is standing
      */
     public Element getLocation() {
-        // TODO document function
         return location;
     }
 }

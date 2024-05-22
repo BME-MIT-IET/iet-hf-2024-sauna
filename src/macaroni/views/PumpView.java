@@ -46,7 +46,7 @@ public class PumpView extends View {
      * Létrehoz egy új PumpView példányt.
      *
      * @param position a pumpa pozíciója.
-     * @param pump a megjelenítendő pumpa
+     * @param pump     a megjelenítendő pumpa
      */
     public PumpView(Position position, Pump pump) {
         super(position);
@@ -89,8 +89,8 @@ public class PumpView extends View {
     /**
      * Draws a pipe marker.
      *
-     * @param g the graphics object to draw on
-     * @param pipePos position of the pipe
+     * @param g        the graphics object to draw on
+     * @param pipePos  position of the pipe
      * @param intoPump if triangle should face towards the pump
      */
     private void drawTriangle(Graphics g, Position pipePos, boolean intoPump) {
@@ -103,7 +103,7 @@ public class PumpView extends View {
 
         // read from bottom to top             java math my beloved
         AffineTransform mx = AffineTransform.getTranslateInstance( // translate to map space
-                 position.x() + triangleVec.getX(),
+                position.x() + triangleVec.getX(),
                 position.y() + triangleVec.getY()
         );
         mx.concatenate(AffineTransform.getRotateInstance( // rotate to pipe direction
@@ -142,7 +142,7 @@ public class PumpView extends View {
      */
     @Override
     public boolean isInside(int x, int y) {
-        return square(x - position.x()) + square(y - position.y()) <=
+        return square((double) x - position.x()) + square((double) y - position.y()) <=
                 square(fullTexture.getWidth(null) / 2.0);
     }
 

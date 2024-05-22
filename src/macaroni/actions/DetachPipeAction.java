@@ -1,6 +1,6 @@
 package macaroni.actions;
 
-import macaroni.app.gameView.ViewRepository;
+import macaroni.app.game_view.ViewRepository;
 import macaroni.model.character.Plumber;
 import macaroni.model.element.ActiveElement;
 import macaroni.model.element.Pipe;

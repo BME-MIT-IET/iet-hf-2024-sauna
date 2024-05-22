@@ -1,13 +1,13 @@
 package macaroni.actions;
 
-import macaroni.app.gameView.ViewRepository;
+import macaroni.app.game_view.ViewRepository;
 import macaroni.model.character.Character;
 import macaroni.model.character.Plumber;
 import macaroni.model.element.Element;
 import macaroni.views.CharacterView;
 import macaroni.views.PipeView;
+
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 
 /**
@@ -39,19 +39,18 @@ public class MoveAction extends Action {
     public boolean doAction(Element element) {
         var locationBeforeMove = actor.getLocation();
         var success = actor.moveTo(element);
-        logger.info("Move success: " + success);
+        logger.info(() -> "Move success: " + success);
         if (success) {
             var characterView = (CharacterView) ViewRepository.getViewOfObject(actor);
             characterView.setPosition(ViewRepository.getViewOfObject(element).getPosition());
-            if (actor instanceof Plumber plumber) {
-                if (plumber.getHeldPipe() != null) {
-                    var heldPipeView = (PipeView) ViewRepository.getViewOfObject(plumber.getHeldPipe());
-                    heldPipeView.replaceEndpointPos(
-                            ViewRepository.getViewOfObject(locationBeforeMove).getPosition(),
-                            ViewRepository.getViewOfObject(actor.getLocation()).getPosition()
-                    );
-                }
+            if (actor instanceof Plumber plumber && plumber.getHeldPipe() != null) {
+                var heldPipeView = (PipeView) ViewRepository.getViewOfObject(plumber.getHeldPipe());
+                heldPipeView.replaceEndpointPos(
+                        ViewRepository.getViewOfObject(locationBeforeMove).getPosition(),
+                        ViewRepository.getViewOfObject(actor.getLocation()).getPosition()
+                );
             }
+
         }
         return success;
     }

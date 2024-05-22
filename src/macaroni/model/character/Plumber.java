@@ -11,7 +11,7 @@ import java.util.List;
 public class Plumber extends Character {
 
     /**
-     * The pipe held by the plumber inbetween detach and attach actions,
+     * The pipe held by the plumber in between detach and attach actions,
      * null if the plumber doesn't hold a pipe.
      */
     private Pipe heldPipe;
@@ -72,12 +72,11 @@ public class Plumber extends Character {
      * @return true if successful
      */
     public boolean attachPipe(ActiveElement target) {
-        if (location == target && heldPipe != null) {
-            if (target.addPipe(heldPipe)) {
-                heldPipe = null;
-                return true;
-            }
+        if (location == target && heldPipe != null && target.addPipe(heldPipe)) {
+            heldPipe = null;
+            return true;
         }
+
         return false;
     }
 
@@ -92,12 +91,11 @@ public class Plumber extends Character {
      * @return true if successful
      */
     public boolean detachPipe(ActiveElement target, Pipe pipe) {
-        if (location == target && heldPipe == null) {
-            if (target.removePipe(pipe)) {
-                heldPipe = pipe;
-                return true;
-            }
+        if (location == target && heldPipe == null && target.removePipe(pipe)) {
+            heldPipe = pipe;
+            return true;
         }
+
         return false;
     }
 
@@ -129,17 +127,16 @@ public class Plumber extends Character {
      * @return true if successful
      */
     public boolean placePump(Pipe pipe) {
-        if (location == pipe && heldPumps.size() != 0) {
-            if (pipe.leave()) {
-                Pipe newPipe = pipe.split();
-                Pump pump = getHeldPump();
-                heldPumps.remove(pump);
-                pump.addPipe(pipe);
-                pump.addPipe(newPipe);
-                pump.enter(this, location);
-                return true;
-            }
+        if (location == pipe && !heldPumps.isEmpty() && pipe.leave()) {
+            Pipe newPipe = pipe.split();
+            Pump pump = getHeldPump();
+            heldPumps.remove(pump);
+            pump.addPipe(pipe);
+            pump.addPipe(newPipe);
+            pump.enter(this, location);
+            return true;
         }
+
         return false;
     }
 
@@ -147,7 +144,6 @@ public class Plumber extends Character {
      * @return pipe held by the plumber
      */
     public Pipe getHeldPipe() {
-        // TODO document function
         return heldPipe;
     }
 
@@ -156,7 +152,7 @@ public class Plumber extends Character {
      * in the plumber's hand, or null if they hold no pumps
      */
     public Pump getHeldPump() {
-        if (heldPumps.size() == 0) {
+        if (heldPumps.isEmpty()) {
             return null;
         } else {
             return heldPumps.get(0);

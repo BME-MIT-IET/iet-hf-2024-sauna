@@ -35,9 +35,10 @@ public final class App {
             }
 
             long sleepTime = lastLoopTime - System.currentTimeMillis() + OPTIMAL_TIME;
+
             if (sleepTime >= 0) {
                 try {
-                    logger.fine("Sleeping for " + sleepTime + " ms.");
+                    logger.fine("Sleeping for %d ms.".formatted(sleepTime));
                     Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
                     logger.log(Level.SEVERE, "Thread was interrupted. Stopping application.", e);

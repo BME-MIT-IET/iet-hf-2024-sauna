@@ -6,7 +6,10 @@ package macaroni.views;
  * @param x az x koordináta
  * @param y az y koordináta
  */
-public record Position(int x, int y) implements Cloneable {
+public record Position(int x, int y) {
+    public Position(Position other) {
+        this(other.x, other.y);
+    }
 
     /**
      * Hozzáad ehhez a positionhöz egy másikat.
@@ -26,14 +29,5 @@ public record Position(int x, int y) implements Cloneable {
      */
     public Position scale(double factor) {
         return new Position((int) (x * factor), (int) (y * factor));
-    }
-
-    /**
-     * Lemásolja a positiont.
-     * @return position másolat
-     */
-    @Override
-    public Position clone() {
-        return new Position(this.x, this.y);
     }
 }

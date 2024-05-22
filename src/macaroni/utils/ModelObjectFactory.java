@@ -16,7 +16,7 @@ public final class ModelObjectFactory {
     /**
      * The map that stores the objects created by ModelObjectFactory.
      */
-    private final static Map<String, Object> objectMap = new HashMap<>();
+    private static final Map<String, Object> objectMap = new HashMap<>();
 
     /**
      * The water collector that should be used as ground when
@@ -295,7 +295,7 @@ public final class ModelObjectFactory {
      */
     public static Pipe cisternCreatePipe() {
         if (cisternCreatePipeName == null) {
-            throw new RuntimeException("ERROR: cisternCreatePipeName has to be set before calling cisternCreatePipe!");
+            throw new IllegalStateException("ERROR: cisternCreatePipeName has to be set before calling cisternCreatePipe!");
         }
         String pipeName = cisternCreatePipeName;
         cisternCreatePipeName = null;
@@ -322,7 +322,7 @@ public final class ModelObjectFactory {
      */
     public static Pump cisternCreatePump() {
         if (cisternCreatePumpName == null) {
-            throw new RuntimeException("ERROR: cisternCreatePumpName has to be set before calling cisternCreatePump!");
+            throw new IllegalStateException("ERROR: cisternCreatePumpName has to be set before calling cisternCreatePump!");
         }
         String pumpName = cisternCreatePumpName;
         cisternCreatePumpName = null;
@@ -350,7 +350,7 @@ public final class ModelObjectFactory {
      */
     public static Pipe pipeCreatePipe(WaterCollector ground) {
         if (pipeCreatePipeName == null) {
-            throw new RuntimeException("ERROR: pipeCreatePipeName has to be set before calling pipeCreatePipe!");
+            throw new IllegalStateException("ERROR: pipeCreatePipeName has to be set before calling pipeCreatePipe!");
         }
         String pipeName = pipeCreatePipeName;
         pipeCreatePipeName = null;

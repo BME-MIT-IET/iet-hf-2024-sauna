@@ -15,7 +15,7 @@ public class PipeView extends View {
 
     private final Pipe pipe;
     private final Position[] endpointsPos = new Position[2];
-    private final int outerWidth = 21;
+    private static final int OUTER_WIDTH = 21;
     private boolean isNew = false;
 
     public void setNew(boolean value) {
@@ -37,7 +37,7 @@ public class PipeView extends View {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2.setColor(GameColors.oceanBlue);
-        g2.setStroke(new BasicStroke(outerWidth));
+        g2.setStroke(new BasicStroke(OUTER_WIDTH));
         g2.drawLine(endpointsPos[0].x(), endpointsPos[0].y(),
                 endpointsPos[1].x(), endpointsPos[1].y());
 
@@ -65,7 +65,7 @@ public class PipeView extends View {
         Vector2D endToClick = new Vector2D(endpointsPos[0].scale(-1).add(new Position(x, y)));
         Vector2D dir = new Vector2D(endpointsPos[0].scale(-1).add(endpointsPos[1]));
         Vector2D normal = new Vector2D(dir.getY(), -dir.getX()).normalize();
-        return Math.abs(normal.dot(endToClick)) <= outerWidth
+        return Math.abs(normal.dot(endToClick)) <= OUTER_WIDTH
                 && dir.normalize().dot(endToClick) <= dir.length()
                 && dir.normalize().dot(endToClick) > 0;
     }
