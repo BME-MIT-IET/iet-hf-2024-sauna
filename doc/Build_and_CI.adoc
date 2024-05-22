@@ -1,0 +1,22 @@
+= Build framework and CI setup
+
+== Set up Gradle as a build-system
+
+*   Without setting up the framework, we wouldn't have been able to execute further tests.
+
+*   When selecting the build framework, we didn't have specific criteria; we chose Gradle over Maven purely based on preference.
+
+*   Setting up Gradle using IntelliJ IDE was straightforward, as it supports the structure of the build framework and facilitates the setup process.
+
+*   Gradle uses windows-1250 as file encoding (tested on Windows) by default.
+    It is recommended to use UTF-8 instead for compiling both the main program and the test cases.
+    JavaDoc should also be set to UTF-8 separately.
+
+*   The following code snippet was added to the code to enable configuring *_gradle run_*: `mainClassName = "macaroni.Main"`
+
+== Set up Gradle build as a GitHub Action
+
+*   Using Gradle with Java is rather simple with the help of the predefined template.
+    (See more https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle[here].)
+
+*   It is important to set the used JDK level to the highest version possible when starting out, so developers using newer features can work safely.

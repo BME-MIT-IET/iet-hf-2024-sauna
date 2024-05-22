@@ -5,8 +5,11 @@ import macaroni.utils.ModelObjectSerializer;
 import macaroni.commandHandler.CommandInterpreter;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public final class ViewCommand extends Command {
+
+    private static final Logger logger = Logger.getLogger(ViewCommand.class.getName());
 
     /**
      * Constructor.
@@ -39,15 +42,19 @@ public final class ViewCommand extends Command {
 
         Object object = ModelObjectFactory.getObject(args[1]);
         if (object == null) {
-            System.out.println("! object not found");
+            logger.warning("Object not found: " + args[1]);
             return;
         }
 
         if (args.length < 3) {
-            System.out.println(ModelObjectSerializer.serializeToString(object));
+            logger.info(ModelObjectSerializer.serializeToString(object));
         } else {
             String message = ModelObjectSerializer.serializeToString(object, args[2]);
-            System.out.println(Objects.requireNonNullElse(message, "! attribute not found"));
+            if (message != null) {
+                logger.info(message);
+            } else {
+                logger.warning("Attribute not found: " + args[2]);
+            }
         }
     }
 }

@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public final class ListCommand extends Command {
+
+    private static final Logger logger = Logger.getLogger(ListCommand.class.getName());
 
     /**
      * HashMap containing the names of the different types of objects in separate lists.
@@ -72,7 +75,7 @@ public final class ListCommand extends Command {
             if (entry.getValue().size() == 0) {
                 continue;
             }
-            System.out.println(entry.getKey().getSimpleName() + ": " + String.join(", ", entry.getValue()));
+            logger.info(entry.getKey().getSimpleName() + ": " + String.join(", ", entry.getValue()));
         }
     }
 }

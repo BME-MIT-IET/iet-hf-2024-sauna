@@ -19,12 +19,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 
 /**
  * the game menu of the application
  */
 public final class GameMenu extends JPanel {
-
+    private static final Logger logger = Logger.getLogger(GameMenu.class.getName());
     /**
      * the game over screen
      */
@@ -146,7 +149,7 @@ public final class GameMenu extends JPanel {
         int x = (int) (e.getX() - dragger.getTransform().getTranslateX());
         int y = (int) (e.getY() - dragger.getTransform().getTranslateY());
 
-        System.out.println("Mouse pressed: x: " + x + ", y: " + y);
+        logger.info("Mouse pressed: x: " + x + ", y: " + y);
         if (selectedAction != null) {
             View foundView = null;
             // go through active elements
@@ -162,7 +165,7 @@ public final class GameMenu extends JPanel {
 
             // go through pipes if no active element found
             if (foundView == null) {
-                System.out.println("Couldn't find active elements, searching for pipes...");
+                logger.warning("Couldn't find active elements, searching for pipes...");
                 for (View view : ViewRepository.getFiltered(v -> v instanceof PipeView)) {
                     if (view.isInside(x, y)) {
                         foundView = view;
@@ -172,15 +175,15 @@ public final class GameMenu extends JPanel {
             }
 
             if (foundView != null) {
-                System.out.println("View found: " + foundView);
+                logger.fine("View found: " + foundView);
                 selectView(foundView);
             } else {
-                System.out.println("No view found");
+                logger.warning("No view found");
                 actionFailed(false);
             }
             selectedAction = null;
         } else {
-            System.out.println("Selected action is null");
+            logger.warning("Selected action is null");
             dragger.mousePressed(e);
         }
     }
@@ -191,7 +194,7 @@ public final class GameMenu extends JPanel {
      * @param view the view
      */
     private void selectView(View view) {
-        System.out.println("Trying action on view: " + view);
+        logger.info("Trying action on view: " + view);
         if (view.select(selectedAction)) {
             actionSuccess();
         } else {
@@ -257,7 +260,7 @@ public final class GameMenu extends JPanel {
      * Handles the success of an action
      */
     private void actionSuccess() {
-        System.out.println("Action success");
+        logger.info("Action success");
         stepGame();
     }
 
@@ -317,7 +320,7 @@ public final class GameMenu extends JPanel {
             ModelObjectFactory.setCisternCreatePumpName("cisternCreatedPump" + cisternCreatePumpCounter);
             if (p.pickUpPump(c)) {
                 cisternCreatePumpCounter++;
-                System.out.println("Pick up Pump success");
+                logger.info("Pick up Pump success");
                 actionSuccess();
             } else {
                 actionFailed(false);
@@ -338,7 +341,7 @@ public final class GameMenu extends JPanel {
                         ViewRepository.getViewOfObject(p).getPosition(),
                         ViewRepository.getViewOfObject(ae).getPosition()
                 );
-                System.out.println("Attach pipe success");
+                logger.info("Attach pipe success");
                 actionSuccess();
             } else {
                 actionFailed(false);
@@ -411,7 +414,7 @@ public final class GameMenu extends JPanel {
                 ViewRepository.add(createdPipe, pipeView);
 
                 pipeCreatePipeCounter++;
-                System.out.println("Place Pump success");
+                logger.info("Place Pump success");
                 actionSuccess();
             } else {
                 actionFailed(false);
@@ -429,7 +432,7 @@ public final class GameMenu extends JPanel {
                 var createdEffect = (BananaEffect) p.getEffect();
                 ViewRepository.add(createdEffect, new BananaEffectView(
                         ViewRepository.getViewOfObject(p).getPosition(), createdEffect));
-                System.out.println("Banana Pipe success");
+                logger.info("Banana Pipe success");
                 actionSuccess();
             } else {
                 actionFailed(false);
@@ -447,7 +450,7 @@ public final class GameMenu extends JPanel {
                 var createdEffect = (TechnokolEffect) p.getEffect();
                 ViewRepository.add(createdEffect, new TechnokolEffectView(
                         ViewRepository.getViewOfObject(p).getPosition(), createdEffect));
-                System.out.println("Technokol Pipe success");
+                logger.info("Technokol Pipe success");
                 actionSuccess();
             } else {
                 actionFailed(false);

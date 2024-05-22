@@ -3,13 +3,11 @@ package macaroni.app.menuView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.EventListener;
 
-/**
- * Panel used to create and display teams in the main menu.
- */
 public final class TeamPanel extends MenuPanel {
     private final TeamTextBox textBox;
-
+    private PanelListener listener;
     /**
      * Constructor, creates a new TeamPanel.
      *
@@ -18,9 +16,9 @@ public final class TeamPanel extends MenuPanel {
      * @param size              the size of the panel in pixels
      * @param listElementHeight the height of the elements inside the panel in pixels
      */
-    public TeamPanel(String teamName, Point centerOnScreen, Dimension size, int listElementHeight) {
-        super(teamName, centerOnScreen, size, listElementHeight, false);
-
+    public TeamPanel(String teamName, Point centerOnScreen, Dimension size, int listElementHeight, PanelListener listener) {
+        super(teamName, centerOnScreen, size, listElementHeight, false, listener);
+        this.listener = listener;
         int footerHeight = listElementHeight * 3 / 2;
 
         MenuLabel label = new MenuLabel("", new Dimension(size.width, footerHeight));
@@ -43,6 +41,10 @@ public final class TeamPanel extends MenuPanel {
         if (newName == null || newName.trim().equals("")) return;
         if (!elementList.getElements().contains(newName)) {
             elementList.addElement(newName);
+            if(listener != null) {
+                listener.onPanelChange(); // Trigger the event
+            }
         }
     }
 }
+

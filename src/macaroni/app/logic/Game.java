@@ -12,11 +12,15 @@ import macaroni.views.PipeView;
 import macaroni.views.Position;
 
 import java.util.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Represents the game and its logic
  */
 public final class Game {
+
+    private static final Logger logger = Logger.getLogger(Game.class.getName());
 
     /**
      * Used with GameEndedListener
@@ -131,7 +135,7 @@ public final class Game {
         if (plumberCollector instanceof WaterCollector pwc) {
             this.plumberCollector = pwc;
         } else {
-            System.err.println("Map file doesn't contain a water collector named plumberCollector!");
+            logger.severe("Map file doesn't contain a water collector named plumberCollector!");
             return false;
         }
 
@@ -139,7 +143,7 @@ public final class Game {
         if (saboteurCollector instanceof WaterCollector swc) {
             this.saboteurCollector = swc;
         } else {
-            System.err.println("Map file doesn't contain a water collector named saboteurCollector!");
+            logger.severe("Map file doesn't contain a water collector named saboteurCollector!");
             return false;
         }
 
@@ -150,7 +154,7 @@ public final class Game {
 
         // return if there are not at least 2 active elements
         if (activeElements.size() < 2) {
-            System.err.println("Map file has less than 2 active elements!");
+            logger.severe("Map file has less than 2 active elements!");
             return false;
         }
 
@@ -238,11 +242,11 @@ public final class Game {
                 var pipe = (Pipe) ModelObjectFactory.getObject(nameOfPipe);
 
                 double randomDirection = random.nextDouble(0, 2 * Math.PI);
-                System.out.println("Random direction: " + randomDirection);
+                logger.info("Random direction: " + randomDirection);
                 int x = (int) (cisternPosition.x() + Math.cos(randomDirection) * 120.0);
                 int y = (int) (cisternPosition.y() + Math.sin(randomDirection) * 120.0);
 
-                System.out.println("x: " + x + " y: " + y);
+                logger.info("x: " + x + " y: " + y);
 
                 // create view for new pipe
                 var pipeView = new PipeView(pipe , new Position[] {cisternPosition, new Position(x, y)});
