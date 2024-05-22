@@ -5,12 +5,15 @@ import macaroni.model.character.Plumber;
 import macaroni.model.element.ActiveElement;
 import macaroni.model.element.Pipe;
 import macaroni.views.PipeView;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 
 /**
  * Cső aktív elemről való lekötési interakciót kezelő osztály.
  */
 public class DetachPipeAction extends Action {
-
+    private static final Logger logger = Logger.getLogger(DetachPipeAction.class.getName());
     /**
      * A szerelő, aki az akciót végzi
      */
@@ -41,7 +44,7 @@ public class DetachPipeAction extends Action {
     public boolean doAction(Pipe pipe) {
         var success = actor.detachPipe(activeElement, pipe);
         if (success) {
-            System.out.println("Detach pipe success");
+            logger.info("Detach pipe success");
             var detachedPipeView = (PipeView) ViewRepository.getViewOfObject(pipe);
             detachedPipeView.replaceEndpointPos(
                     ViewRepository.getViewOfObject(activeElement).getPosition(),
