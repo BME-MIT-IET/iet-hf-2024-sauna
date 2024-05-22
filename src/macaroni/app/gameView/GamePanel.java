@@ -1,11 +1,13 @@
 package macaroni.app.gameView;
 
+import macaroni.app.menuView.CloseButton;
 import macaroni.model.character.Character;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.awt.event.WindowEvent;    
 
 /**
  * Panel displaying the game menu.
@@ -53,6 +55,7 @@ public class GamePanel extends JPanel {
      */
     private HandView handView;
 
+    private JButton closeButton;
     /**
      * Constructor, creates a new GamePanel.
      */
@@ -127,6 +130,15 @@ public class GamePanel extends JPanel {
         add(handView);
 
         add(mainContentPanel);
+
+        closeButton = new CloseButton(new Point(10, 10), new Dimension(80, 40), e -> {
+            Window window = SwingUtilities.getWindowAncestor(this);
+            if (window != null) {
+                window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
+            }
+        }, "Exit");
+        add(closeButton);
+
     }
 
     /**

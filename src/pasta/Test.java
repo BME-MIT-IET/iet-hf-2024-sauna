@@ -8,11 +8,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
+import java.util.logging.Logger;
+
+import macaroni.views.PipeView;
 
 /**
  * Class for representing a test case
  */
 public final class Test {
+    private static final Logger logger = Logger.getLogger(Test.class.getName());
     /**
      * the file that describes the commands and assertions of the test
      */
@@ -64,7 +68,7 @@ public final class Test {
             assertionResults.clear();
             lineCounter = 0;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
             return;
         }
 

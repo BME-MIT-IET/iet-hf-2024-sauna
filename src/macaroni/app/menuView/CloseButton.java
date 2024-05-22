@@ -2,38 +2,22 @@ package macaroni.app.menuView;
 
 import macaroni.app.AssetManager;
 import macaroni.app.GameColors;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 
-/**
- * The class of the start button in the menu.
- */
-public final class MenuStartButton extends JButton {
-    /**
-     * Constructor, creates a new MenuStartButton.
-     *
-     * @param positionOfCenter the center of the button on the screen in pixel coordinates
-     * @param size the size of the button in pixels
-     * @param listener the method that gets called if the button is clicked
-     */
-    public MenuStartButton(Point positionOfCenter, Dimension size, ActionListener listener) {
-        super("WAITING");
+public final class CloseButton extends JButton {
+    public CloseButton(Point position, Dimension size, ActionListener listener, String text) {
+        super(text);
         setSize(size);
-        setLocation(positionOfCenter.x - getWidth() / 2, positionOfCenter.y - getHeight() / 2);
+        setLocation(position.x, position.y);
         addActionListener(listener);
         setFont(AssetManager.getFont("ChakraPetch-Regular.ttf").deriveFont(Font.BOLD, size.height / 1.6f));
         setFocusPainted(false);
         setBorder(null);
     }
 
-    /**
-     * Method used to draw the button on screen.
-     *
-     * @param g the graphics
-     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -42,14 +26,14 @@ public final class MenuStartButton extends JButton {
         int width = getWidth();
         int height = getHeight();
 
-        float outerBorder = getWidth() / 12.0f, innerBorder = outerBorder * 0.8f;
+        float outerBorder = getWidth() / 15.0f, innerBorder = outerBorder * 0.8f;
         int arc = getWidth() / 4;
 
         RoundRectangle2D outerBorderRectangle = new RoundRectangle2D.Double(0, 0, width, height, arc, arc);
         g2.setColor(GameColors.oceanBlue);
         g2.fill(outerBorderRectangle);
 
-        RoundRectangle2D innerBorderRectangle = new RoundRectangle2D.Double(innerBorder / 2, innerBorder / 2, width - innerBorder, height - innerBorder, arc- innerBorder, arc- innerBorder);
+        RoundRectangle2D innerBorderRectangle = new RoundRectangle2D.Double(innerBorder / 2, innerBorder / 2, width - innerBorder, height - innerBorder, arc - innerBorder, arc - innerBorder);
         g2.setColor(GameColors.snowWhite);
         g2.fill(innerBorderRectangle);
 
@@ -66,19 +50,4 @@ public final class MenuStartButton extends JButton {
 
         g2.dispose();
     }
-
-    /**
-     * Overrides the default setEnabled method to provide custom enable/disable behavior.
-     * 
-     * @param enabled true to enable the button, false to disable it
-     */
-    @Override
-    public void setEnabled(boolean enabled) {
-        if(enabled){
-            super.setText("START");
-
-        }
-        super.setEnabled(enabled);
-    }
-
 }

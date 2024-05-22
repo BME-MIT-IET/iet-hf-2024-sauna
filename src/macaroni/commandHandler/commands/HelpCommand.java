@@ -1,8 +1,11 @@
 package macaroni.commandHandler.commands;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public final class HelpCommand extends Command {
+
+    private static final Logger logger = Logger.getLogger(HelpCommand.class.getName());
 
     /**
      * The list of commands that will be printed out.
@@ -45,7 +48,7 @@ public final class HelpCommand extends Command {
         for (Command command : commandList) {
             nameList.add(command.name);
         }
-        System.out.println(String.join(", ", nameList));
+        logger.info("Available commands: " + String.join(", ", nameList));
     }
 
     /**
@@ -57,7 +60,7 @@ public final class HelpCommand extends Command {
     private void listCommand(String commandName) {
         for (Command command : commandList) {
             if (command.name.equals(commandName)) {
-                System.out.println(command.description);
+                logger.info("Command description: " + command.description);
                 return;
             }
         }

@@ -5,8 +5,11 @@ import macaroni.commandHandler.commands.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public final class CommandInterpreter {
+
+    private static final Logger logger = Logger.getLogger(CommandInterpreter.class.getName());
 
     /**
      * List containing the executable commands.
@@ -42,11 +45,13 @@ public final class CommandInterpreter {
      * Takes in user input from System.in until EOF.
      */
     public void processInput() {
+        logger.info("Starting command input processing");
         System.out.print("> ");
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String[] args = scanner.nextLine().split(" ");
             if (args[0].isEmpty()) {
+                logger.info("Empty input, awaiting new input");
                 System.out.print("> ");
                 continue;
             }
@@ -54,6 +59,7 @@ public final class CommandInterpreter {
             System.out.print("> ");
         }
         scanner.close();
+        logger.info("Command input processing finished");
     }
 
     /**
@@ -63,13 +69,16 @@ public final class CommandInterpreter {
      * @param args the arguments of the command
      */
     private void processCommand(String[] args) {
+        logger.info("Processing command: " + args[0]);
         for (Command command : commands) {
             if (command.getName().equals(args[0].toLowerCase())) {
                 command.execute(args);
+                logger.info("Command executed successfully: " + args[0]);
                 return;
             }
         }
         printUnknownCommand();
+        logger.warning("Unknown command: " + args[0]);
     }
 
     /**
@@ -81,11 +90,11 @@ public final class CommandInterpreter {
      */
     public static boolean namingIsWrong(String nameToCheck) {
         if (!nameToCheck.matches("[a-zA-Z0-9]+")) {
-            System.out.println("! name can only contain english letters and numbers");
+            logger.warning("Invalid name format: " + nameToCheck);
             return true;
         }
         if (ModelObjectFactory.getObject(nameToCheck) != null) {
-            System.out.println("! object with name already exists");
+            logger.warning("Duplicate object name: " + nameToCheck);
             return true;
         }
         return false;
@@ -95,20 +104,20 @@ public final class CommandInterpreter {
      * Notifies the user that an invalid argument was given.
      */
     public static void printInvalidArgument() {
-        System.out.println("! invalid parameter found in command");
+        logger.warning("Invalid argument found");
     }
 
     /**
      * Notifies the user that an unknown command was given.
      */
     public static void printUnknownCommand() {
-        System.out.println("! unknown command, use ‘help’ to see the full list of commands");
+        logger.warning("Unknown command");
     }
 
     /**
      * Notifies the user that a parameter is missing from the command arguments.
      */
     public static void printMissingParameter() {
-        System.out.println("! missing parameter");
+        logger.warning("Missing parameter");
     }
 }

@@ -6,10 +6,18 @@ import macaroni.model.element.Pipe;
 import macaroni.model.element.Pump;
 import macaroni.views.PumpView;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Pumpa bemeneti csőállítási interakciót kezelő osztály.
  */
 public class SetPumpInputAction extends Action {
+
+    /**
+     * Logger inicializálása
+     */
+    private static final Logger LOGGER = Logger.getLogger(SetPumpInputAction.class.getName());
 
     /**
      * A karakter, aki az akciót végzi
@@ -24,7 +32,7 @@ public class SetPumpInputAction extends Action {
      * Létrehoz egy SetPumpInputAction példányt.
      *
      * @param actor A karakter, aki az akciót végzi
-     * @param pump A pumpa, amin az akciót végzi
+     * @param pump  A pumpa, amin az akciót végzi
      */
     public SetPumpInputAction(Character actor, Pump pump) {
         this.actor = actor;
@@ -43,6 +51,7 @@ public class SetPumpInputAction extends Action {
         if (success) {
             var pumpView = (PumpView) ViewRepository.getViewOfObject(pump);
             pumpView.setInputPipePos(ViewRepository.getViewOfObject(pipe).getPosition());
+            LOGGER.log(Level.INFO, "Pump input pipe set successfully");
         }
         return success;
     }

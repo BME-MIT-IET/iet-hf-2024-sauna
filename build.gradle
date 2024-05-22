@@ -25,12 +25,19 @@ sourceSets {
             srcDirs = ['src']
         }
     }
+    test {
+        java {
+            srcDirs = ['test']
+        }
+    }
 }
 
 mainClassName = "macaroni.Main"
 
 dependencies {
     testImplementation 'junit:junit:4.13.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
 }
 
 sonar {

@@ -1,0 +1,31 @@
+Unit testing is inevitable in any larger projects, because with the increasing complexity of a project, it's getting close to impossible to test the whole code in one go. Unit test focus on a small, elaborate part of the code and thus, provide help with localizing issues.
+
+This particular project was well-designed, which is proven by the fact that every unit-test have passed.
+
+There were 4 major test classes, with the following methods:
+
+  1.) Vector2DTest
+The methods in this class test the functionality of the math package, namely:
+  -add
+  -dot
+  -length
+  -scale
+  -normalize
+  -toPosition
+
+  2.) PlumberTest
+The methods in this class test the functionality related to the plumber character (as such, they some of them are bound to test the methods of the Character class and other, plumber-related classes):
+  -repair
+  -pickUpPump
+  -placePump
+
+  3.) SaboteurTest
+The methods in this class test the functionality of the saboteur character, and some related classes, for instance the content of the action package:
+  -dropbanana
+  -applyTechnokol
+  -getLocation
+  -setPipeIO
+
+  4.) SpringTest
+The methods in this class test the functionality of the Spring element and some water related methods:
+  -tick: test the addPipe function of the Element class and whether the Spring really distributes the expected amount of water via its tick method
