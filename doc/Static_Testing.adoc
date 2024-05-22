@@ -6,3 +6,11 @@
     The fix is updating the given GitHub Action source commit in the link:../.github/workflows/sonarcloud.yml[sonarcloud.yml] file
     -
     which happened in commit *#939a3b5a2caf9e2afee5e9f4937515c945579937*.
+
+== Fixing Sonar issues
+
+*   SonarLint is excellent at solving some issues on its own.
+    We used the IDE to accept these suggestions after reviewing them.
+
+*   A few issues were related to bad design, and could not be fixed without a major rewrite.
+    These are tagged with `//NOSONAR` as the program functions well in its current state, and we do not plan on fixing these.
