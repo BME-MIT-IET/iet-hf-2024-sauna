@@ -47,7 +47,7 @@ public final class Test {
      */
     public Test(File testFile) throws IOException {
         this.testFile = testFile;
-        outputFile = new File(Main.outDir.getAbsolutePath() + "/" + outfileName());
+        outputFile = new File(String.valueOf(Paths.get(Main.outDir.getAbsolutePath(), outfileName())));
         Files.createFile(outputFile.toPath());
     }
 

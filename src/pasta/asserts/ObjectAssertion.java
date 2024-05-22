@@ -6,6 +6,7 @@ import java.util.Objects;
  * Static class that describes the rules of asserting an entity's existence.
  */
 public final class ObjectAssertion {
+    private ObjectAssertion() {}
 
     /**
      * Checks whether the given line is a well formatted assertion according to the class's rules.

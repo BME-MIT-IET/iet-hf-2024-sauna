@@ -42,5 +42,7 @@ public final class NoEffect extends Effect {
      * Does nothing - Empty function.
      */
     @Override
-    public void tick() {}
+    public void tick() {
+        // Empty on purpose
+    }
 }

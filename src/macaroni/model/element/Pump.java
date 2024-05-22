@@ -140,7 +140,7 @@ public class Pump extends ActiveElement {
     /**
      * Breaks the pump.
      */
-    public boolean Break() {
+    public boolean crack() {
         if (!broken) {
             broken = true;
             return true;
@@ -149,7 +149,6 @@ public class Pump extends ActiveElement {
         }
     }
 
-    // TODO document this function
     /**
      * Gets the pump's input pipe.
      * @return the pipe which is the pump's input
@@ -158,7 +157,6 @@ public class Pump extends ActiveElement {
         return inputPipe;
     }
 
-    // TODO document this function
     /**
      * Gets the pump's output pipe.
      * @return the pipe which is the pump's output

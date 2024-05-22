@@ -11,10 +11,6 @@ import java.awt.*;
 public class SaboteurView extends CharacterView {
 
     /**
-     * A szabotőr, akit meg kell jeleníteni
-     */
-    private final Saboteur saboteur;
-    /**
      * A szabotőr textúrája.
      */
     private final Image texture = AssetManager.getImage("Saboteur.png").getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -28,7 +24,6 @@ public class SaboteurView extends CharacterView {
      */
     public SaboteurView(Position position, Saboteur saboteur, String name) {
         super(position, name);
-        this.saboteur = saboteur;
     }
 
     /**

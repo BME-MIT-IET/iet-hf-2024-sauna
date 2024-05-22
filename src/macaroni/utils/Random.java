@@ -19,7 +19,7 @@ public final class Random {
      * Whether the next randomly generated number should be
      * random (true) or deterministic (false)
      */
-    private static boolean random = true;
+    private static boolean nonDeterministic = true;
 
     /**
      * The deterministic value that will be returned when
@@ -39,6 +39,8 @@ public final class Random {
      */
     private static final Map<Pipe, Element> characterLocationsBeforeEnteringPipe = new HashMap<>();
 
+    private Random() {}
+
     /**
      * Sets a deterministic value that will be returned instead of a random value
      * on the next call to {@link #generateRandomInt(int, int)}. Consequent calls
@@ -47,7 +49,7 @@ public final class Random {
      * @param value the deterministic value
      */
     public static void setDeterministicValue(int value) {
-        random = false;
+        nonDeterministic = false;
         deterministicValue = value;
     }
 
@@ -64,11 +66,11 @@ public final class Random {
      * @throws IllegalArgumentException
      */
     public static int generateRandomInt(int start, int stop) throws IllegalArgumentException {
-        if (random) {
+        if (nonDeterministic) {
             return generator.nextInt(start, stop);
         } else {
             // consume deterministic value
-            random = true;
+            nonDeterministic = true;
             return deterministicValue;
         }
     }
@@ -128,7 +130,7 @@ public final class Random {
         } else {
             int indexOfCharLoc = endpoints.indexOf(characterLocationsBeforeEnteringPipe.get(pipe));
             characterLocationsBeforeEnteringPipe.remove(pipe);
-            if (deterministicSlideBacks.get(pipe)) {
+            if (Boolean.TRUE.equals(deterministicSlideBacks.get(pipe))) {
                 return indexOfCharLoc;
             } else {
                 return indexOfCharLoc == 0 ? 1 : 0;

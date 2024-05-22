@@ -1,7 +1,6 @@
 package macaroni.views;
 
 import macaroni.app.AssetManager;
-import macaroni.app.GameColors;
 import macaroni.model.character.Plumber;
 
 import java.awt.*;
@@ -10,11 +9,6 @@ import java.awt.*;
  * A szerelők megjelenítéséért felelős osztály.
  */
 public class PlumberView extends CharacterView {
-
-    /**
-     * A szerelő, akit meg kell jeleníteni.
-     */
-    private final Plumber plumber;
 
     /**
      * A szerelő textúrája.
@@ -30,7 +24,9 @@ public class PlumberView extends CharacterView {
      */
     public PlumberView(Position position, Plumber plumber, String name) {
         super(position, name);
-        this.plumber = plumber;
+        /**
+         * A szerelő, akit meg kell jeleníteni.
+         */
     }
 
     /**

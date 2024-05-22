@@ -1,6 +1,6 @@
 package macaroni.app.logic;
 
-import macaroni.app.gameView.ViewRepository;
+import macaroni.app.game_view.ViewRepository;
 import macaroni.model.character.Character;
 import macaroni.model.character.Plumber;
 import macaroni.model.character.Saboteur;
@@ -13,7 +13,6 @@ import macaroni.views.Position;
 
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 /**
  * Represents the game and its logic
@@ -222,7 +221,7 @@ public final class Game {
         // if this is the end of this round, break a random pump
         if (currentTurnNumber == maximumNumberOfTurns - 1) {
             for (var pump : ModelObjectFactory.getRandomizedObjectList(Pump.class)) {
-                if (pump.Break()) {
+                if (pump.crack()) {
                     break;
                 }
             }

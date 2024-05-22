@@ -80,7 +80,6 @@ public final class TechnokolEffect extends Effect {
      * @return the remaining ticks of the effect
      */
     public int getCountdown() {
-        // TODO document function
         return countdown;
     }
 }

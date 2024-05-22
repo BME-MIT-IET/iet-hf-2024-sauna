@@ -81,7 +81,7 @@ public class Pipe extends Element {
      * @return a random (not null) endpoint of the pipe.
      */
     public ActiveElement getRandomEndpoint() {
-        if (endpoints.size() > 0) {
+        if (!endpoints.isEmpty()) {
             return endpoints.get(Random.generateRandomEndpointIndex(this, endpoints));
         }
         return null;
@@ -92,7 +92,6 @@ public class Pipe extends Element {
      * @return the endpoint, or null if the pipe doesn't have an endpoint with the specified index set
      */
     public ActiveElement getEndpoint(int index) {
-        // TODO document this function in docs
         if (endpoints.size() > index) {
             return endpoints.get(index);
         } else {
@@ -109,12 +108,11 @@ public class Pipe extends Element {
     @Override
     public boolean enter(Character character, Element from) {
         Random.setCharacterLocationBeforeEnteringPipe(this, from);
-        if (neighbours.contains(from) && !occupied && endpoints.size() == 2) {
-            if (effect.enter(character)) {
-                occupied = true;
-                return true;
-            }
+        if (neighbours.contains(from) && !occupied && endpoints.size() == 2 && effect.enter(character)) {
+            occupied = true;
+            return true;
         }
+
         return false;
     }
 
@@ -297,7 +295,6 @@ public class Pipe extends Element {
      * @return the effect on the pipe
      */
     public Effect getEffect() {
-        // TODO document function
         return effect;
     }
 

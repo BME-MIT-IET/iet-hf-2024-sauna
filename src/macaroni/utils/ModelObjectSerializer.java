@@ -35,6 +35,7 @@ public class ModelObjectSerializer {
 
     /**
      * Sets the listener to notify when a model object is loaded.
+     *
      * @param listener the listener to set.
      */
     public static void setModelObjectLoadedListener(ModelObjectLoadedListener listener) {
@@ -62,17 +63,21 @@ public class ModelObjectSerializer {
                 // print fieldName = fieldValue
                 if (attributeName == null || field.getName().equals(attributeName)) {
                     sb.append("\n\t").append(field.getName()).append(" = ");
-                    field.setAccessible(true);
-                    try {
-                        sb.append(serializeAttribute(field.get(object)));
-                    } catch (IllegalAccessException e) {
-                        sb.append("$IllegalAccessException");
-                    }
+                    field.setAccessible(true); // NOSONAR
+                    appendField(object, sb, field);
                     if (attributeName != null) return sb.toString();
                 }
             }
         }
         return attributeName != null ? null : sb.toString();
+    }
+
+    private static void appendField(Object object, StringBuilder sb, Field field) {
+        try {
+            sb.append(serializeAttribute(field.get(object)));
+        } catch (IllegalAccessException e) {
+            sb.append("$IllegalAccessException");
+        }
     }
 
     /**
@@ -112,9 +117,9 @@ public class ModelObjectSerializer {
 
         // if obj is a list, go through all elements and print them,
         // and if they are model objects, print their names instead
-        if (obj instanceof List) {
+        if (obj instanceof List list) {
             StringBuilder sb = new StringBuilder("[");
-            for (Object o : (List) obj) {
+            for (Object o : list) {
                 sb.append(serializeAttribute(o)).append(", ");
             }
             if (sb.length() > 1) {
@@ -154,9 +159,26 @@ public class ModelObjectSerializer {
      * @param file the file to serialize all objects to
      * @throws IOException if an I/O error occurs
      */
-    public static void deserializeFromFile(File file) throws Exception {
+    public static void deserializeFromFile(File file) throws IOException {
         String[] lines = Files.readString(file.toPath()).split("\n");
 
+        createObjects(lines);
+
+        // set fields for objects
+        String currentObjectName = null;
+        for (String line : lines) {
+            if (!line.startsWith("#") && line.contains("=")) {
+                // if line starts with tab, then it is an attribute name-value pair,
+                // set field of the current object
+                String[] attribData = line.split("=");
+                setObjectField(ModelObjectFactory.getObject(currentObjectName), attribData[0].strip(), attribData.length < 2 ? "" : attribData[1].strip());
+            } else {
+                currentObjectName = line.split(":")[0].strip();
+            }
+        }
+    }
+
+    private static void createObjects(String[] lines) {
         Pattern posRegex = Pattern.compile("x\\s*=\\s*(\\d+)\\s*,\\s*y\\s*=\\s*(\\d+)");
         Position pos = null;
 
@@ -172,19 +194,6 @@ public class ModelObjectSerializer {
                 String[] objInfo = line.split(":");
                 createObject(objInfo[1].strip(), objInfo[0].strip(), pos);
                 pos = null;
-            }
-        }
-
-        // set fields for objects
-        String currentObjectName = null;
-        for (String line : lines) {
-            if (!line.startsWith("#") && line.contains("=")) {
-                // if line starts with tab, then it is an attribute name-value pair,
-                // set field of the current object
-                String[] attribData = line.split("=");
-                setObjectField(ModelObjectFactory.getObject(currentObjectName), attribData[0].strip(), attribData.length < 2 ? "" : attribData[1].strip());
-            } else {
-                currentObjectName = line.split(":")[0].strip();
             }
         }
     }
@@ -205,7 +214,7 @@ public class ModelObjectSerializer {
             case "Plumber" -> ModelObjectFactory.createPlumber(name, null);
             case "Saboteur" -> ModelObjectFactory.createSaboteur(name, null);
             case "WaterCollector" -> ModelObjectFactory.createWaterCollector(name);
-            default -> throw new RuntimeException("Invalid object type found in map file: " + type);
+            default -> throw new IllegalArgumentException("Invalid object type found in map file: " + type);
         };
         if (modelObjectLoadedListener != null)
             modelObjectLoadedListener.modelObjectLoaded(created, name, pos);
@@ -215,8 +224,8 @@ public class ModelObjectSerializer {
     /**
      * Sets the value of the field of the given object.
      *
-     * @param object the object to set the field of
-     * @param fieldName the name of the field to set
+     * @param object     the object to set the field of
+     * @param fieldName  the name of the field to set
      * @param fieldValue the value to set the field to
      */
     private static void setObjectField(Object object, String fieldName, String fieldValue) {
@@ -225,25 +234,25 @@ public class ModelObjectSerializer {
             // search for field
             for (Field field : reflection.getDeclaredFields()) {
                 if (!field.getName().equals(fieldName)) continue;
-                field.setAccessible(true);
+                field.setAccessible(true); //NOSONAR
                 try {
-                    field.set(object, deserializeAttribute(object, field, field.getType(), fieldValue));
+                    field.set(object, deserializeAttribute(object, field, field.getType(), fieldValue)); //NOSONAR
                     return;
                 } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
+                    throw new UnsupportedOperationException(e);
                 }
             }
         }
 
-        throw new RuntimeException("Invalid attribute found in map file: " + fieldName);
+        throw new IllegalStateException("Invalid attribute found in map file: " + fieldName);
     }
 
     /**
      * Deserializes an attribute of the given object.
      *
-     * @param object the object to deserialize an attribute of
-     * @param field the field of the object this serialized attribute corresponds to
-     * @param type the type of the object this serialized attribute corresponds to
+     * @param object         the object to deserialize an attribute of
+     * @param field          the field of the object this serialized attribute corresponds to
+     * @param type           the type of the object this serialized attribute corresponds to
      * @param attributeValue the serialized value of the attribute
      * @return the deserialized object
      */
@@ -283,7 +292,7 @@ public class ModelObjectSerializer {
                 case "None" -> new NoEffect((Pipe) object);
                 case "Banana" -> new BananaEffect((Pipe) object);
                 case "Technokol" -> new TechnokolEffect((Pipe) object);
-                default -> throw new RuntimeException("Unknown effect type: " + attributeValue);
+                default -> throw new IllegalArgumentException("Unknown effect type: " + attributeValue);
             };
         }
 
@@ -293,6 +302,6 @@ public class ModelObjectSerializer {
             return obj;
         }
 
-        throw new RuntimeException("Unsupported attribute type: " + type.getSimpleName() + ", value: " + attributeValue);
+        throw new IllegalArgumentException("Unsupported attribute type: " + type.getSimpleName() + ", value: " + attributeValue);
     }
 }

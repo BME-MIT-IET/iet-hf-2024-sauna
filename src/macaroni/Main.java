@@ -1,7 +1,7 @@
 package macaroni;
 
 import macaroni.app.App;
-import macaroni.commandHandler.CommandInterpreter;
+import macaroni.command_handler.CommandInterpreter;
 
 import java.util.Arrays;
 
